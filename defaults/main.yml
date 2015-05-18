@@ -1,7 +1,5 @@
 # defaults file for r
 ---
 r_cran_mirror: http://cran.rstudio.com/
-
 r_install_dev: false
-
 r_install: []
