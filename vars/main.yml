@@ -1,0 +1,9 @@
+# vars file for r
+---
+r_repository:
+  - type: deb
+    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_lsb.codename }}/"
+
+r_dependencies:
+  - r-base
+  - "{{ 'r-base-dev' if r_install_dev else '' }}"

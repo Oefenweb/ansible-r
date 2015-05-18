@@ -1,0 +1,16 @@
+# tasks file for r
+---
+- name: install dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: r_dependencies
+  when: "item | trim != ''"
+  tags: [configuration, r, r-dependencies]
+
+- name: install
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: r_install
+  tags: [configuration, r, r-install]

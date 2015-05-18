@@ -1,0 +1,16 @@
+# tasks file for r
+---
+- name: add public key
+  apt_key:
+    id: E084DAB9
+    keyserver: keyserver.ubuntu.com
+    state: present
+  tags: [configuration, r, r-public-key]
+
+- name: add cran-r repository
+  apt_repository:
+    repo: "{{ item.type }} {{ item.url }}"
+    state: present
+    update_cache: yes
+  with_items: r_repository
+  tags: [configuration, r, r-repository]
