@@ -13,9 +13,6 @@ before_install:
   # Remove r-base
   - sudo apt-get remove --purge r-base
 
-  # Install littler
-  - sudo apt-get install littler
-
 install:
   # Install Ansible.
   - pip install ansible==$ANSIBLE_VERSION

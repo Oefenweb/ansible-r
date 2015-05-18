@@ -4,3 +4,6 @@
   remote_user: root
   roles:
     - ansible-r
+  vars:
+    r_install:
+      - littler
