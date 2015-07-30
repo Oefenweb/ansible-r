@@ -24,7 +24,7 @@ None
 ---
 - hosts: all
   roles:
-  - r
+    - r
 ```
 
 #### License
