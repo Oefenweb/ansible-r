@@ -11,3 +11,9 @@
     - configuration
     - r
     - r-install
+
+- include: packages.yml
+  tags:
+    - configuration
+    - r
+    - r-packages
