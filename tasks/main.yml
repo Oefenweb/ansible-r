@@ -1,4 +1,13 @@
 # tasks file for r
 ---
 - include: repository.yml
+  tags:
+    - configuration
+    - r
+    - r-repository
+
 - include: install.yml
+  tags:
+    - configuration
+    - r
+    - r-install
