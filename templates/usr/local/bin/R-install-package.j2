@@ -1,0 +1,17 @@
+#!/usr/bin/env r
+
+if (is.null(argv) | length(argv) < 1) {
+  cat("Usage: R-install-package package [lib] [repos]\n");
+  q(status = 1);
+}
+
+package = argv[1]
+lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
+repos = ifelse(is.na(argv[3]), '{{ r_packages_repos }}', argv[3]);
+
+if (!(package %in% installed.packages(lib.loc = lib)[,'Package'])) {
+  withCallingHandlers(install.packages(package, lib, repos), warning = stop);
+  cat("changed\n");
+} else {
+  cat("unchanged\n");
+}

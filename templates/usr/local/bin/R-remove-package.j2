@@ -1,0 +1,16 @@
+#!/usr/bin/env r
+
+if (is.null(argv) | length(argv) < 1) {
+  cat("Usage: R-remove-package package [lib]\n");
+  q(status = 1);
+}
+
+package = argv[1]
+lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
+
+if (package %in% installed.packages(lib.loc = lib)[,'Package']) {
+  withCallingHandlers(remove.packages(package, lib), warning = stop);
+  cat("changed\n");
+} else {
+  cat("unchanged\n");
+}
