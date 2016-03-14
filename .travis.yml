@@ -44,7 +44,7 @@ before_install:
   - sudo apt-get update -qq
 
   # Remove r-base
-  - sudo apt-get remove --purge r-base
+  - sudo apt-get remove --purge --yes r-base
 
 install:
   # Install Ansible.
