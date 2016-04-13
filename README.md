@@ -1,6 +1,6 @@
 ## r
  
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
+[![Build Status](https://travis-ci.org/danhalligan/ansible-r.svg?branch=master)](https://travis-ci.org/danhalligan/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
 
 Set up the latest version of R in Ubuntu systems.
 
@@ -65,4 +65,4 @@ Mischa ter Smitten
 
 #### Feedback, bug-reports, requests, ...
 
-Are [welcome](https://github.com/Oefenweb/ansible-r/issues)!
+Are [welcome](https://github.com/danhalligan/ansible-r/issues)!
