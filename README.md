@@ -1,4 +1,4 @@
-## r
+## ansible-r
  
 [![Build Status](https://travis-ci.org/danhalligan/ansible-r.svg?branch=master)](https://travis-ci.org/danhalligan/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
 
@@ -13,6 +13,7 @@ Set up the latest version of R in Ubuntu systems.
 * `r_cran mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
 * `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
 * `r_install`: [default: `[]`]: Additional (apt) packages to install (e.g. `r-recommended`)
+* `r_bioclite_url`: [default: `"{{ r_bioclite_url }}"`]: The biocLite.R script URL for bioconductor installs
 
 * `r_packages_lib`: [default: `/usr/local/lib/R/site-library`]: The (default) library directory to install packages to
 * `r_packages_repos`: [default: `"{{ r_cran_mirror }}"`]: The (default) URL to install packages from
@@ -50,9 +51,11 @@ None
     # apt packages
     r_install:
       - r-recommended
-    # cran-r packages
+    # cran or bioconductor R packages
     r_packages:
       - name: dplyr
+      - name: Biobase
+        type: bioconductor
 ```
 
 #### License
@@ -61,7 +64,7 @@ MIT
 
 #### Author Information
 
-Mischa ter Smitten
+Mischa ter Smitten, Dan Halligan
 
 #### Feedback, bug-reports, requests, ...
 
