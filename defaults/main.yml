@@ -9,4 +9,4 @@ r_packages_lib: /usr/local/lib/R/site-library
 r_packages: []
 
 r_bioclite_url: http://bioconductor.org/biocLite.R
-default_type: r
+r_default_type: r

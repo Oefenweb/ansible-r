@@ -6,7 +6,7 @@ if (is.null(argv) | length(argv) < 1) {
 }
 
 package = argv[1]
-type = ifelse(is.na(argv[2]), '{{ default_type }}', argv[2]);
+type = ifelse(is.na(argv[2]), '{{ r_default_type }}', argv[2]);
 lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
 
 if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
@@ -16,7 +16,7 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
   } else if (type == "bioconductor") {
     withCallingHandlers(
       {
-        source("{{ bioclite_url }}");
+        source("{{ r_bioclite_url }}");
         biocLite(package, lib=lib, suppressUpdates=TRUE, 
           suppressAutoUpdate=TRUE, ask=FALSE);
       }, 
