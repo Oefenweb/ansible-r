@@ -9,25 +9,23 @@ package = argv[1]
 type = ifelse(is.na(argv[2])), '{{ default_type }}, argv[4]);
 lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[2]);
 
-if (type == "r") {
-  repos = ifelse(is.na(argv[4]), '{{ r_packages_repos }}', argv[3]);
-  
-  if (!(package %in% installed.packages(lib.loc = lib)[,'Package'])) {
+if (!(package %in% installed.packages(lib.loc = lib)[,'Package'])) {
+  if (type == "r") {
+    repos = ifelse(is.na(argv[4]), '{{ r_packages_repos }}', argv[3]);
     withCallingHandlers(install.packages(package, lib, repos), warning = stop);
-    cat("changed\n");
+  } else if (type == "bioconductor") {
+    withCallingHandlers(
+      {
+        source("{{ bioclite_url }}");
+        biocLite(package, lib=lib, suppressUpdates=TRUE, 
+          suppressAutoUpdate=TRUE, ask=FALSE);
+      }, 
+      warning = stop
+    )
   } else {
-    cat("unchanged\n");
+    stop("Type not recognised!\n");
   }
-} else if (type == "bioconductor") {
-
-  withCallingHandlers({
-      source("{{ bioclite_url }}");
-      biocLite(package, lib=lib, suppressUpdates=TRUE, 
-        suppressAutoUpdate=TRUE, ask=FALSE);
-    }, 
-    warning = stop
-  )
-    
+  cat("changed\n");
 } else {
-  stop("Type not recognised!\n");
+  cat("unchanged\n");
 }
