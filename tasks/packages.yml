@@ -18,7 +18,7 @@
     {{ item.name }} \
     {% if item.type is defined %}{{ item.type }}{% else %}r{% endif %} \
     {% if item.lib is defined %}{{ item.lib }}{% endif %} \
-    {% if item.repos is defined %} {{ item.repos }}{% endif %}"
+    {% if item.repos is defined %}{{ item.repos }}{% endif %}"
   register: r_install_package
   changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
   with_items: r_packages
