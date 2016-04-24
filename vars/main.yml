@@ -7,3 +7,4 @@ r_dependencies:
   - r-base
   - littler
   - "{{ 'r-base-dev' if r_install_dev else '' }}"
+  

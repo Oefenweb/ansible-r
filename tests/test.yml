@@ -18,3 +18,8 @@
 
       - name: foreign
         state: absent
+
+      - name: Biobase
+        state: present
+        type: bioconductor
+
