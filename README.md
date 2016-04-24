@@ -53,7 +53,7 @@ None
     # apt packages
     r_install:
       - r-recommended
-    # cran or bioconductor R packages
+    # cran or bioconductor (R) packages
     r_packages:
       - name: dplyr
       - name: Biobase
