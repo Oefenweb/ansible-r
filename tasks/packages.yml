@@ -14,11 +14,12 @@
       dest: R-remove-package
 
 - name: packages | install
-  command: "R-install-package \
-    {{ item.name }} \
-    {% if item.type is defined %}{{ item.type }}{% else %}r{% endif %} \
-    {% if item.lib is defined %}{{ item.lib }}{% endif %} \
-    {% if item.repos is defined %}{{ item.repos }}{% endif %}"
+  command: >
+    R-install-package \
+      {{ item.name }} \
+      {{ item.type | default(r_packages_type) }} \
+      {% if item.lib is defined %}{{ item.lib }}{% endif %} \
+      {% if item.repos is defined %}{{ item.repos }}{% endif %}
   register: r_install_package
   changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
   with_items: r_packages
@@ -27,7 +28,10 @@
     - r-packages-install
 
 - name: packages | remove
-  command: "R-remove-package {{ item.name }}{% if item.lib is defined %} {{ item.lib }}{% endif %}"
+  command: >
+    R-remove-package \
+      {{ item.name }} \
+      {% if item.lib is defined %}{{ item.lib }}{% endif %}
   register: r_remove_package
   changed_when: "r_remove_package.stdout_lines[-1] is defined and r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: r_packages
