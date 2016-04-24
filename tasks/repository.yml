@@ -13,6 +13,6 @@
     repo: "{{ item.type }} {{ item.url }}"
     state: present
     update_cache: true
-  with_items: r_repository
+  with_items: "{{ r_repository }}"
   tags:
     - r-repository-add
