@@ -6,7 +6,7 @@
     state: latest
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-  with_items: r_dependencies
+  with_items: "{{ r_dependencies }}"
   when: "item | trim != ''"
   tags:
     - r-install-dependencies
@@ -15,6 +15,6 @@
   apt:
     name: "{{ item }}"
     state: latest
-  with_items: r_install
+  with_items: "{{ r_install }}"
   tags:
     - r-install-additional

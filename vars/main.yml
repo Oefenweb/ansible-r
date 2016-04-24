@@ -3,6 +3,7 @@
 r_repository:
   - type: deb
     url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}/"
+
 r_dependencies:
   - r-base
   - littler

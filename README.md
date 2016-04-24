@@ -11,6 +11,8 @@ Set up the latest version of R in Ubuntu systems.
 #### Variables
 
 * `r_cran mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
+* `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](http://bioconductor.org/) installs
+
 * `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
 * `r_install`: [default: `[]`]: Additional (apt) packages to install (e.g. `r-recommended`)
 
@@ -20,6 +22,7 @@ Set up the latest version of R in Ubuntu systems.
 * `r_packages`: [default: `[]`]: (CRAN) Packages to install or remove
 * `r_packages.{n}.name`: [required]: The name of the package
 * `r_packages.{n}.state`: [optional, default: `present`]: The state of the package
+* `r_packages.{n}.type`: [optional, default: `cran`]: The type of the package (e.g. `bioconductor`)
 * `r_packages.{n}.lib`: [optional, default: `r_packages_lib`]: The library directory to install the package to
 * `r_packages.{n}.repos`: [optional, default: `r_packages_repos`]: The URL to install the package from
 
@@ -50,9 +53,11 @@ None
     # apt packages
     r_install:
       - r-recommended
-    # cran-r packages
+    # cran or bioconductor (R) packages
     r_packages:
       - name: dplyr
+      - name: Biobase
+        type: bioconductor
 ```
 
 #### License

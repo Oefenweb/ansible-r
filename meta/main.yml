@@ -13,4 +13,7 @@ galaxy_info:
         - trusty
   galaxy_tags:
     - system
+    - r
+    - cran-r
+    - statistics
 dependencies: []

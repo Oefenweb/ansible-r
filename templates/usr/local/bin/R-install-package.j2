@@ -1,16 +1,27 @@
 #!/usr/bin/env r
 
 if (is.null(argv) | length(argv) < 1) {
-  cat("Usage: R-install-package package [lib] [repos]\n");
+  cat("Usage: R-install-package package [type] [lib] [repos]\n");
   q(status = 1);
 }
 
 package = argv[1]
-lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
-repos = ifelse(is.na(argv[3]), '{{ r_packages_repos }}', argv[3]);
+type = ifelse(is.na(argv[2]), '{{ r_packages_type }}', argv[2]);
+lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
 
-if (!(package %in% installed.packages(lib.loc = lib)[,'Package'])) {
-  withCallingHandlers(install.packages(package, lib, repos), warning = stop);
+if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+  if (type == "cran") {
+    repos = ifelse(is.na(argv[4]), '{{ r_packages_repos }}', argv[4]);
+    withCallingHandlers(install.packages(package, lib, repos), warning = stop);
+  } else if (type == "bioconductor") {
+    withCallingHandlers({
+      source("{{ r_bioclite_url }}");
+      biocLite(package, lib=lib, suppressUpdates=TRUE, suppressAutoUpdate=TRUE, ask=FALSE);
+    }, warning = stop)
+  } else {
+    cat("Unrecognised type\n");
+    q(status = 1);
+  }
   cat("changed\n");
 } else {
   cat("unchanged\n");
