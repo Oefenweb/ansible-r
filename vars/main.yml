@@ -7,3 +7,4 @@ r_repository:
 r_dependencies:
   - r-base
   - "{{ 'r-base-dev' if r_install_dev else '' }}"
+  
