@@ -18,8 +18,7 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
             warning = stop
         )
     } else if (type == "bioconductor") {
-        withCallingHandlers(
-        {
+        withCallingHandlers({
                 source("{{ r_bioclite_url }}")
                 biocLite(package, lib=lib, suppressUpdates=TRUE, 
                     suppressAutoUpdate=TRUE, ask=FALSE)
