@@ -5,7 +5,7 @@ if (is.null(argv) | length(argv) < 1) {
     cat("Usage: R-install-package package [type] [lib] [repos]\n")
     q(status = 1)
 }
-print(argv)
+
 package <- argv[1]
 type <- ifelse(is.na(argv[2]), "{{ r_packages_type }}", argv[2])
 lib <- ifelse(is.na(argv[3]), "{{ r_packages_lib }}", argv[3])
