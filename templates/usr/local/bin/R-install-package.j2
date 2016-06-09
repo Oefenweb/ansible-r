@@ -10,7 +10,7 @@ package <- argv[1]
 type <- ifelse(is.na(argv[2]), "{{ r_packages_type }}", argv[2])
 lib <- ifelse(is.na(argv[3]), "{{ r_packages_lib }}", argv[3])
 
-if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+if (!(package %in% installed.packages(lib.loc = lib)[, "Package"])) {
     if (type == "cran") {
         repos <- ifelse(is.na(argv[4]), "{{ r_packages_repos }}", argv[4])
         withCallingHandlers(
