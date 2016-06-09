@@ -70,8 +70,7 @@ script:
 
   # Test r installation
   - >
-    echo 'print(gsub("I","O","PING"))'
-    | r
+    Rscript -e  'print(gsub("I","O","PING"))' 
     | grep -q 'PONG'
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
