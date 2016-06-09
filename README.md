@@ -1,6 +1,6 @@
 ## r
  
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
+[![Build Status](https://travis-ci.org/dan.halligan/ansible-r.svg?branch=master)](https://travis-ci.org/dan.halligan/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
 
 Set up the latest version of R in Ubuntu systems.
 
