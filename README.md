@@ -4,10 +4,6 @@
 
 Set up the latest version of R in Ubuntu systems.
 
-#### Requirements
-
-* `littler` (will be installed)
-
 #### Variables
 
 * `r_cran mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
