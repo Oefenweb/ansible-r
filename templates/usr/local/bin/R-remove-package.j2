@@ -10,7 +10,7 @@ package <- argv[1]
 lib <- ifelse(is.na(argv[2]), "{{ r_packages_lib }}", argv[2])
 
 if (package %in% installed.packages(lib.loc = lib)[, "Package"]) {
-    withCallingHandlers(remove.packages(package, lib), warning=stop)
+    withCallingHandlers(remove.packages(package, lib), warning = stop)
     cat("changed\n")
 } else {
     cat("unchanged\n")
