@@ -5,3 +5,19 @@
   sudo: true
   roles:
     - ../../
+  vars:
+    r_packages:
+      - name: DBI
+        state: present
+
+      - name: DBI
+        repos: 'http://cran-mirror.cs.uu.nl/'
+        lib: /tmp
+
+      - name: colorspace
+
+      - name: foreign
+        state: absent
+
+      - name: Biobase
+        type: bioconductor
