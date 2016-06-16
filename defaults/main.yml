@@ -4,7 +4,8 @@ r_cran_mirror: http://cran.rstudio.com/
 r_bioclite_url: https://bioconductor.org/biocLite.R
 
 r_install_dev: false
-r_install: []
+r_install:
+  - littler
 
 r_packages_type: cran
 r_packages_repos: "{{ r_cran_mirror }}"

@@ -14,7 +14,7 @@ Set up the latest version of R in Ubuntu systems.
 * `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](http://bioconductor.org/) installs
 
 * `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
-* `r_install`: [default: `[]`]: Additional (apt) packages to install (e.g. `r-recommended`)
+* `r_install`: [default: `['littler']`]: Additional (apt) packages to install (e.g. `r-recommended`)
 
 * `r_packages_lib`: [default: `/usr/local/lib/R/site-library`]: The (default) library directory to install packages to
 * `r_packages_repos`: [default: `"{{ r_cran_mirror }}"`]: The (default) URL to install packages from
