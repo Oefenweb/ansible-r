@@ -10,7 +10,7 @@ Set up the latest version of R in Ubuntu systems.
 
 #### Variables
 
-* `r_cran mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
+* `r_cran_mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
 * `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](http://bioconductor.org/) installs
 
 * `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
