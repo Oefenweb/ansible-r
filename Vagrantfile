@@ -6,16 +6,14 @@ role = File.basename(File.expand_path(File.dirname(__FILE__)))
 boxes = [
   {
     :name => "ubuntu-1204",
-    :box => "opscode-ubuntu-12.04",
-    :url => "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box",
+    :box => "bento/ubuntu-12.04",
     :ip => '10.0.0.11',
     :cpu => "50",
     :ram => "256"
   },
   {
     :name => "ubuntu-1404",
-    :box => "opscode-ubuntu-14.04",
-    :url => "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box",
+    :box => "bento/ubuntu-14.04",
     :ip => '10.0.0.12',
     :cpu => "50",
     :ram => "256"
@@ -26,7 +24,6 @@ Vagrant.configure("2") do |config|
   boxes.each do |box|
     config.vm.define box[:name] do |vms|
       vms.vm.box = box[:box]
-      vms.vm.box_url = box[:url]
       vms.vm.hostname = "ansible-#{role}-#{box[:name]}"
 
       vms.vm.provider "virtualbox" do |v|
