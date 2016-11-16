@@ -3,7 +3,7 @@
 - name: install | dependencies
   apt:
     name: "{{ item }}"
-    state: latest
+    state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
   with_items: "{{ r_dependencies }}"
@@ -14,7 +14,7 @@
 - name: install | additional
   apt:
     name: "{{ item }}"
-    state: latest
+    state: "{{ apt_install_state | default('latest') }}"
   with_items: "{{ r_install }}"
   tags:
     - r-install-additional
