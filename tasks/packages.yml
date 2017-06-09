@@ -18,7 +18,7 @@
     R-install-package
       {{ item.name }}
       {{ item.type | default(r_packages_type) }}
-      {% if item.lib is defined %}{{ item.lib }}{% endif %}
+      {{ item.lib | default(r_packages_lib) }}
       {% if item.repos is defined %}{{ item.repos }}{% endif %}
   register: r_install_package
   changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
