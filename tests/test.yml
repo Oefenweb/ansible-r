@@ -11,7 +11,7 @@
         state: present
 
       - name: DBI
-        repos: 'http://cran-mirror.cs.uu.nl/'
+        repos: http://cran-mirror.cs.uu.nl/
         lib: /tmp
 
       - name: colorspace
@@ -21,3 +21,6 @@
 
       - name: Biobase
         type: bioconductor
+
+      - name: shiny
+        repos: http://cran.rstudio.com/
