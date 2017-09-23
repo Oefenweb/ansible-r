@@ -19,6 +19,11 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
       source('{{ r_bioclite_url }}')
       biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
     }, warning = stop);
+  } else if (type == 'github') {
+    withCallingHandlers({
+      library(remotes)
+      install_github(package, lib = lib)
+    }, warning = stop);
   } else {
     cat("Unrecognised type\n");
     q(status = 1);
