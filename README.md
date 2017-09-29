@@ -18,6 +18,7 @@ Set up the latest version of R in Ubuntu systems.
 
 * `r_packages_lib`: [default: `/usr/local/lib/R/site-library`]: The (default) library directory to install packages to
 * `r_packages_repos`: [default: `"{{ r_cran_mirror }}"`]: The (default) URL to install packages from
+* `r_packages_install_remotes`: [default: `false`]: Install the `remotes` package used for installing packages from GitHub
 
 * `r_packages`: [default: `[]`]: (CRAN) Packages to install or remove
 * `r_packages.{n}.name`: [required]: The name of the package
@@ -53,11 +54,13 @@ None
     # apt packages
     r_install:
       - r-recommended
-    # cran or bioconductor (R) packages
+    # cran, bioconductor or github (R) packages
     r_packages:
       - name: dplyr
       - name: Biobase
         type: bioconductor
+      - name: mangothecat/franc
+        type: github
 ```
 
 #### License
