@@ -24,3 +24,8 @@
 
       - name: shiny
         repos: http://cran.rstudio.com/
+
+      - name: mangothecat/franc
+        type: github
+
+    r_packages_install_remotes: true
