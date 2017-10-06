@@ -27,5 +27,3 @@
 
       - name: mangothecat/franc
         type: github
-
-    r_packages_install_remotes: true
