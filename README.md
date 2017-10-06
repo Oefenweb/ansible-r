@@ -1,6 +1,6 @@
 ## r
  
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/tersmitten/r/)
 
 Set up the latest version of R in Ubuntu systems.
 
@@ -18,7 +18,6 @@ Set up the latest version of R in Ubuntu systems.
 
 * `r_packages_lib`: [default: `/usr/local/lib/R/site-library`]: The (default) library directory to install packages to
 * `r_packages_repos`: [default: `"{{ r_cran_mirror }}"`]: The (default) URL to install packages from
-* `r_packages_install_remotes`: [default: `false`]: Install the `remotes` package used for installing packages from GitHub
 
 * `r_packages`: [default: `[]`]: (CRAN) Packages to install or remove
 * `r_packages.{n}.name`: [required]: The name of the package
