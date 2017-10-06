@@ -1,6 +1,6 @@
 ## r
  
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/list#/roles/3831)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/tersmitten/r/)
 
 Set up the latest version of R in Ubuntu systems.
 
@@ -53,11 +53,13 @@ None
     # apt packages
     r_install:
       - r-recommended
-    # cran or bioconductor (R) packages
+    # cran, bioconductor or github (R) packages
     r_packages:
       - name: dplyr
       - name: Biobase
         type: bioconductor
+      - name: mangothecat/franc
+        type: github
 ```
 
 #### License

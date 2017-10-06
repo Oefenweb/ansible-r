@@ -22,7 +22,7 @@
       {% if item.repos is defined %}{{ item.repos }}{% endif %}
   register: r_install_package
   changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
-  with_items: "{{ r_packages }}"
+  with_items: "{{ r_packages_from_github | ternary(r_preset_package_remotes + r_packages, r_packages) }}"
   when: item.state is undefined or item.state == 'present'
   tags:
     - r-packages-install

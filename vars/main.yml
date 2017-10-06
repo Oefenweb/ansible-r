@@ -7,3 +7,6 @@ r_repository:
 r_dependencies:
   - r-base
   - "{{ 'r-base-dev' if r_install_dev else '' }}"
+
+r_preset_package_remotes:
+  - name: remotes
