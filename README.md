@@ -7,6 +7,7 @@ Set up the latest version of R in Ubuntu systems.
 #### Requirements
 
 * `littler` (will be installed)
+* `bash` (will not be installed)
 
 #### Variables
 
