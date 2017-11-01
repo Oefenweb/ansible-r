@@ -1,0 +1,17 @@
+#!/usr/bin/env Rscript
+
+argv = commandArgs(trailingOnly = TRUE);
+if (is.null(argv) | length(argv) < 0) {
+  cat("Usage: R-update-packages [lib] [repos]\n");
+  q(status = 1);
+}
+
+lib = ifelse(is.na(argv[1]), '{{ r_packages_lib }}', argv[1]);
+repos = ifelse(is.na(argv[2]), '{{ r_packages_repos.rstrip('/') }}', argv[2]);
+
+if (!is.null(old.packages(lib.loc = lib))) {
+  withCallingHandlers({
+    update.packages(lib, repos, ask = FALSE);
+    cat("changed\n");
+  }, warning = stop);
+}

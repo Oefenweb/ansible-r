@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# {{ ansible_managed }}
+#
+# set -x;
+set -e;
+set -o pipefail;
+#
+thisFile="$(readlink -f "${0}")";
+thisFilePath="$(dirname "${thisFile}")";
+
+if [ -z "${1}" ] || [ "${1}" != '-r' ] || [ -z "${2}" ]; then
+  echo "Usage: ${0} -r requirements.txt";
+  exit 1;
+fi
+
+if [ ! -f "${2}" ]; then
+  echo "Could not open requirements file for reading";
+  exit 1;
+fi
+
+requirementsFile="${2}";
+shift 2;
+
+while IFS= read -r requirement; do
+  requirementType="$(echo "${requirement}" | awk -F'::' '{ print $1}')";
+  requirementName="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $1}')";
+  requirementVersion="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $2}')";
+
+  if [ "${requirementType}" == 'github' ]; then
+    installCommand="devtools::install_github(\"${requirementName}\")";
+    if [ -n "${requirementVersion}" ]; then
+      installCommand="devtools::install_github(\"${requirementName}\", ref=\"${requirementVersion}\")";
+    fi
+  elif [ "${requirementType}" == 'bitbucket' ]; then
+    installCommand="devtools::install_bitbucket(\"${requirementName}\")";
+    if [ -n "${requirementVersion}" ]; then
+      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
+    fi
+  else
+    installCommand="devtools::install_cran(\"${requirementName}\")";
+    if [ -n "${requirementVersion}" ]; then
+      installCommand="devtools::install_version(\"${requirementName}\", version=\"${requirementVersion}\")";
+    fi
+  fi
+
+  Rscript -e "withCallingHandlers(${installCommand}, warning = stop)";
+done < "${requirementsFile}"
