@@ -19,22 +19,24 @@ if (type == 'github') {
 if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
   if (type == 'cran') {
     repos = ifelse(is.na(argv[4]), '{{ r_packages_repos }}', argv[4]);
-    withCallingHandlers(install.packages(package, lib, repos), warning = stop);
+    withCallingHandlers({
+      install.packages(package, lib, repos);
+      cat("changed\n");
+    }, warning = stop);
   } else if (type == 'bioconductor') {
     withCallingHandlers({
       source('{{ r_bioclite_url }}')
       biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+      cat("changed\n");
     }, warning = stop);
   } else if (type == 'github') {
     withCallingHandlers({
       library(remotes)
       install_github(repo, lib = lib)
+      cat("changed\n");
     }, warning = stop);
   } else {
     cat("Unrecognised type\n");
     q(status = 1);
   }
-  cat("changed\n");
-} else {
-  cat("unchanged\n");
 }

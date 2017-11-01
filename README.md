@@ -7,6 +7,7 @@ Set up the latest version of R in Ubuntu systems.
 #### Requirements
 
 * `littler` (will be installed)
+* `bash` (will not be installed)
 
 #### Variables
 
@@ -21,7 +22,7 @@ Set up the latest version of R in Ubuntu systems.
 
 * `r_packages`: [default: `[]`]: (CRAN) Packages to install or remove
 * `r_packages.{n}.name`: [required]: The name of the package
-* `r_packages.{n}.state`: [optional, default: `present`]: The state of the package
+* `r_packages.{n}.state`: [optional, default: `present`]: The state of the package (e.g. `updated`, `absent`)
 * `r_packages.{n}.type`: [optional, default: `cran`]: The type of the package (e.g. `bioconductor`)
 * `r_packages.{n}.lib`: [optional, default: `r_packages_lib`]: The library directory to install the package to
 * `r_packages.{n}.repos`: [optional, default: `r_packages_repos`]: The URL to install the package from

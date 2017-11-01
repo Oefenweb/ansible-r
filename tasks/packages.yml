@@ -12,6 +12,14 @@
       dest: R-install-package
     - src: R-remove-package.j2
       dest: R-remove-package
+    - src: R-update-package.j2
+      dest: R-update-package
+    - src: R-update-packages.j2
+      dest: R-update-packages
+    - src: R-install-requirements.j2
+      dest: R-install-requirements
+  tags:
+    - r-packages-copy-r-scripts
 
 - name: packages | install
   command: >
@@ -20,8 +28,8 @@
       {{ item.type | default(r_packages_type) }}
       {{ item.lib | default(r_packages_lib) }}
       {% if item.repos is defined %}{{ item.repos }}{% endif %}
-  register: r_install_package
-  changed_when: "r_install_package.stdout_lines[-1] is defined and r_install_package.stdout_lines[-1] == 'changed'"
+  register: _r_install_package
+  changed_when: "_r_install_package.stdout_lines[-1] is defined and _r_install_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages_from_github | ternary(r_preset_package_remotes + r_packages, r_packages) }}"
   when: item.state is undefined or item.state == 'present'
   tags:
@@ -32,9 +40,21 @@
     R-remove-package
       {{ item.name }}
       {% if item.lib is defined %}{{ item.lib }}{% endif %}
-  register: r_remove_package
-  changed_when: "r_remove_package.stdout_lines[-1] is defined and r_remove_package.stdout_lines[-1] == 'changed'"
+  register: _r_remove_package
+  changed_when: "_r_remove_package.stdout_lines[-1] is defined and _r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
   when: item.state is defined and item.state == 'absent'
   tags:
     - r-packages-remove
+
+- name: packages | update
+  command: >
+    R-update-package
+      {{ item.name }}
+      {% if item.lib is defined %}{{ item.lib }}{% endif %}
+  register: _r_update_package
+  changed_when: "_r_update_package.stdout_lines[-1] is defined and _r_update_package.stdout_lines[-1] == 'changed'"
+  with_items: "{{ r_packages }}"
+  when: item.state is defined and item.state == 'updated'
+  tags:
+    - r-packages-update

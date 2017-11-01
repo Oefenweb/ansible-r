@@ -2,16 +2,17 @@
 
 argv = commandArgs(trailingOnly = TRUE);
 if (is.null(argv) | length(argv) < 1) {
-  cat("Usage: R-remove-package package [lib]\n");
+  cat("Usage: R-update-package package [lib] [repos]\n");
   q(status = 1);
 }
 
 package = argv[1];
 lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
+repos = ifelse(is.na(argv[3]), '{{ r_packages_repos }}', argv[3]);
 
-if (package %in% installed.packages(lib.loc = lib)[, 'Package']) {
+if (package %in% old.packages(lib.loc = lib)[, 'Package']) {
   withCallingHandlers({
-    remove.packages(package, lib);
+    update.packages(package, lib, repos, ask = FALSE);
     cat("changed\n");
   }, warning = stop);
 }
