@@ -27,6 +27,8 @@ Set up the latest version of R in Ubuntu systems.
 * `r_packages.{n}.lib`: [optional, default: `r_packages_lib`]: The library directory to install the package to
 * `r_packages.{n}.repos`: [optional, default: `r_packages_repos`]: The URL to install the package from
 
+* `r_environment`: [default: `{}`]: Environment variables to set (during the install, update or delete packages tasks)
+
 ## Dependencies
 
 None
