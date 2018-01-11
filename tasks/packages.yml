@@ -28,6 +28,7 @@
       {{ item.type | default(r_packages_type) }}
       {{ item.lib | default(r_packages_lib) }}
       {% if item.repos is defined %}{{ item.repos }}{% endif %}
+  environment: "{{ r_environment }}"
   register: _r_install_package
   changed_when: "_r_install_package.stdout_lines[-1] is defined and _r_install_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages_from_github | ternary(r_preset_package_remotes + r_packages, r_packages) }}"
@@ -40,6 +41,7 @@
     R-remove-package
       {{ item.name }}
       {% if item.lib is defined %}{{ item.lib }}{% endif %}
+  environment: "{{ r_environment }}"
   register: _r_remove_package
   changed_when: "_r_remove_package.stdout_lines[-1] is defined and _r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
@@ -52,6 +54,7 @@
     R-update-package
       {{ item.name }}
       {% if item.lib is defined %}{{ item.lib }}{% endif %}
+  environment: "{{ r_environment }}"
   register: _r_update_package
   changed_when: "_r_update_package.stdout_lines[-1] is defined and _r_update_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
