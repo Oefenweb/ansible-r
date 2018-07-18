@@ -11,7 +11,7 @@
         state: present
 
       - name: DBI
-        repos: http://cran-mirror.cs.uu.nl/
+        repos: http://lib.ugent.be/CRAN/
         lib: /tmp
 
       - name: colorspace
