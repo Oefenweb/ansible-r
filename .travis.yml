@@ -1,11 +1,12 @@
 ---
 sudo: required
-dist: bionic
+# dist: bionic
 
 language: python
 python: "2.7"
 
 env:
+  - distro: ubuntu1804
   - ANSIBLE_VERSION=latest
 
 branches:
