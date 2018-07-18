@@ -14,3 +14,6 @@ r_packages: []
 r_environment: {}
 
 r_packages_from_github: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'github') | map(attribute='name') | list | length > 0 }}"
+
+# r_cran35 is boolean
+r_cran35: True

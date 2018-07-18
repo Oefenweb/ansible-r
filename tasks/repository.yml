@@ -14,5 +14,16 @@
     state: present
     update_cache: true
   with_items: "{{ r_repository }}"
+  when: not r_cran35
+  tags:
+    - r-repository-add
+
+- name: repository | add cran35-r
+  apt_repository:
+    repo: "{{ item.type }} {{ item.url }}"
+    state: present
+    update_cache: true
+  with_items: "{{ r_repository_cran35 }}"
+  when: r_cran35
   tags:
     - r-repository-add
