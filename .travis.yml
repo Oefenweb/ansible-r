@@ -31,7 +31,8 @@ env:
 
 branches:
   only:
-    - master
+#    - master
+    - cran35
 
 before_install:
   - sudo apt-get update -qq
