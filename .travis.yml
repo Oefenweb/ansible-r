@@ -7,7 +7,6 @@ python: "2.7"
 
 env:
   - distro: ubuntu1804
-  - ANSIBLE_VERSION=latest
 
 branches:
   only:
@@ -22,8 +21,8 @@ before_install:
 
 install:
   # Install Ansible.
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
+  - pip install ansible
+  - pip install ansible-lint
 
 script:
   # Check the role/playbook's syntax.
@@ -46,7 +45,7 @@ script:
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
 
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then ansible-lint tests/test.yml || true; fi
+  - ansible-lint tests/test.yml
 
 notifications:
   email: false
