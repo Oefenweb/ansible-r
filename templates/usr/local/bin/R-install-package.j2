@@ -18,7 +18,7 @@ if (type == 'github') {
 
 if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
   if (type == 'cran') {
-    repos = ifelse(is.na(argv[4]), '{{ r_packages_repos }}', argv[4]);
+    repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
     withCallingHandlers({
       install.packages(package, lib, repos);
       cat("changed\n");
