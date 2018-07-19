@@ -1,37 +1,17 @@
 ---
 sudo: required
-dist: trusty
+# dist: bionic
 
 language: python
 python: "2.7"
 
 env:
-  - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.6.0
-  - ANSIBLE_VERSION=2.5.5
-  - ANSIBLE_VERSION=2.5.4
-  - ANSIBLE_VERSION=2.5.3
-  - ANSIBLE_VERSION=2.5.2
-  - ANSIBLE_VERSION=2.5.1
-  - ANSIBLE_VERSION=2.5.0
-  - ANSIBLE_VERSION=2.4.5.0
-  - ANSIBLE_VERSION=2.4.4.0
-  - ANSIBLE_VERSION=2.4.3.0
-  - ANSIBLE_VERSION=2.4.2.0
-  - ANSIBLE_VERSION=2.4.1.0
-  - ANSIBLE_VERSION=2.4.0.0
-  - ANSIBLE_VERSION=2.3.3.0
-  - ANSIBLE_VERSION=2.3.2.0
-  - ANSIBLE_VERSION=2.3.1.0
-  - ANSIBLE_VERSION=2.3.0.0
-  - ANSIBLE_VERSION=2.2.3.0
-  - ANSIBLE_VERSION=2.2.2.0
-  - ANSIBLE_VERSION=2.2.1.0
-  - ANSIBLE_VERSION=2.2.0.0
+  - distro: ubuntu1804
 
 branches:
   only:
-    - master
+#    - master
+    - cran35
 
 before_install:
   - sudo apt-get update -qq
@@ -41,8 +21,8 @@ before_install:
 
 install:
   # Install Ansible.
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
+  - pip install ansible
+  - pip install ansible-lint
 
 script:
   # Check the role/playbook's syntax.
@@ -65,7 +45,7 @@ script:
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
 
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then ansible-lint tests/test.yml || true; fi
+  - ansible-lint tests/test.yml
 
 notifications:
   email: false

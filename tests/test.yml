@@ -10,10 +10,6 @@
       - name: DBI
         state: present
 
-      - name: DBI
-        repos: http://lib.ugent.be/CRAN/
-        lib: /tmp
-
       - name: colorspace
 
       - name: foreign

@@ -4,6 +4,10 @@ r_repository:
   - type: deb
     url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}/"
 
+r_repository_cran35:
+  - type: deb
+    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}-cran35/"
+
 r_dependencies:
   - r-base
   - "{{ 'r-base-dev' if r_install_dev else '' }}"
