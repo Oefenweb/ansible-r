@@ -2,11 +2,11 @@
 ---
 r_repository:
   - type: deb
-    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}/"
+    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}{{ r_version_35 | ternary('-cran35', '') }}/"
 
 r_dependencies:
   - r-base
-  - "{{ 'r-base-dev' if r_install_dev else '' }}"
+  - "{{  r_install_dev | ternary('r-base-dev', '') }}"
 
 r_preset_package_remotes:
   - name: remotes
