@@ -4,6 +4,10 @@
 
 Set up the latest version of R in Ubuntu systems.
 
+#### Installation
+
+    ansible-galaxy install oefenweb.r 
+
 #### Requirements
 
 * `littler` (will be installed)
