@@ -12,6 +12,9 @@ galaxy_info:
         - trusty
         - xenial
         - bionic
+    - name: Debian
+      versions:
+        - stretch
   galaxy_tags:
     - system
     - r

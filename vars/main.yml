@@ -2,7 +2,7 @@
 ---
 r_repository:
   - type: deb
-    url: "{{ r_cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}{{ r_version_35 | ternary('-cran35', '') }}/"
+    url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }}{{ r_version_35 | ternary('-cran35', '') }}/"
 
 r_dependencies:
   - r-base
@@ -10,3 +10,6 @@ r_dependencies:
 
 r_preset_package_remotes:
   - name: remotes
+
+# This can be better, but for now, it is enough to Ubuntu and Debian only
+r_aptkey_id: "{{ 'E298A3A825C0D65DFD57CBB651716619E084DAB9' if ansible_distribution == 'Ubuntu' else 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' }}"

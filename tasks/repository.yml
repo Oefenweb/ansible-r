@@ -2,8 +2,8 @@
 ---
 - name: repository | add public key
   apt_key:
-    id: E084DAB9
-    keyserver: keyserver.ubuntu.com
+    id: "{{ r_aptkey_id }}"
+    keyserver: "hkp://keyserver.ubuntu.com:80"
     state: present
   tags:
     - r-repository-public-key
