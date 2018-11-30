@@ -3,7 +3,6 @@
 
 role = File.basename(File.expand_path(File.dirname(__FILE__)))
 
-
 boxes = [
   {
     :name => "ubuntu-1404",
