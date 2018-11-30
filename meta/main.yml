@@ -1,6 +1,7 @@
 # meta file for r
 ---
 galaxy_info:
+  role_name: r
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up the latest version of R in Ubuntu systems
