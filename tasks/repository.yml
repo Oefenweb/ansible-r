@@ -5,6 +5,10 @@
     id: E298A3A825C0D65DFD57CBB651716619E084DAB9
     keyserver: keyserver.ubuntu.com
     state: present
+  register: task_result
+  until: task_result is success
+  retries: 5
+  delay: 2
   tags:
     - r-repository-public-key
 

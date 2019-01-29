@@ -6,6 +6,10 @@
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  register: task_result
+  until: task_result is success
+  retries: 5
+  delay: 2
   tags:
     - r-install-dependencies
 
@@ -13,5 +17,9 @@
   apt:
     name: "{{ r_install }}"
     state: "{{ apt_install_state | default('latest') }}"
+  register: task_result
+  until: task_result is success
+  retries: 5
+  delay: 2
   tags:
     - r-install-additional
