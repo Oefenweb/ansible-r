@@ -18,7 +18,7 @@ if (package %in% old.packages(lib.loc = lib)[, 'Package'] & type == 'cran') {
   }, warning = stop);
 }
 
-if (type == 'bioconductor' or type == 'github') {
+if (type == 'bioconductor') {
   withCallingHandlers({
     {% if r_version_35 %}
       BiocManager::install(package, lib = lib, update = FALSE)
