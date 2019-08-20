@@ -33,9 +33,9 @@ while IFS= read -r requirement; do
       installCommand="devtools::install_github(\"${requirementName}\", ref=\"${requirementVersion}\")";
     fi
   elif [ "${requirementType}" == 'bitbucket' ]; then
-    installCommand="devtools::install_bitbucket(\"${requirementName}\", auth_user = Sys.getenv(\"BITBUCKET_AUTH_USER\"), password = Sys.getenv(\"BITBUCKET_AUTH_PASSWORD\"))";
+    installCommand="devtools::install_bitbucket(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\", auth_user = Sys.getenv(\"BITBUCKET_AUTH_USER\"), password = Sys.getenv(\"BITBUCKET_AUTH_PASSWORD\"))";
+      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
     fi
   else
     installCommand="devtools::install_cran(\"${requirementName}\")";
