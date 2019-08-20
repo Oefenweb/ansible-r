@@ -2,7 +2,7 @@
 ---
 r_version_35: "{{ ansible_distribution_version is version('18.04', '>=') }}"
 
-r_cran_mirror: http://cran.rstudio.com/
+r_cran_mirror: https://cran.rstudio.com/
 r_bioclite_url: https://bioconductor.org/biocLite.R
 
 r_install_dev: false

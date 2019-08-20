@@ -1,7 +1,7 @@
 ## r
 
 [![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r)
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/Oefenweb/r/)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/Oefenweb/r/)
 
 Set up the latest version of R in Ubuntu systems.
 
@@ -14,8 +14,8 @@ Set up the latest version of R in Ubuntu systems.
 
 * `r_version_35`: [default: `false`, for Ubuntu >= `18.04` always `true`]: Whether or not to install R 3.5
 
-* `r_cran_mirror`: [default: `http://cran.rstudio.com/`]: Your favorite [CRAN mirror](http://cran.r-project.org/mirrors.html)
-* `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](http://bioconductor.org/) installs
+* `r_cran_mirror`: [default: `https://cran.rstudio.com/`]: Your favorite [CRAN mirror](https://cran.r-project.org/mirrors.html)
+* `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](https://bioconductor.org/) installs
 
 * `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
 * `r_install`: [default: `['littler']`]: Additional (apt) packages to install (e.g. `r-recommended`)

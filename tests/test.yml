@@ -11,7 +11,7 @@
         state: present
 
       - name: DBI
-        repos: http://lib.ugent.be/CRAN/
+        repos: https://lib.ugent.be/CRAN/
         lib: /tmp
 
       - name: colorspace
@@ -23,7 +23,7 @@
         type: bioconductor
 
       - name: shiny
-        repos: http://cran.rstudio.com/
+        repos: https://cran.rstudio.com/
 
       - name: mangothecat/franc
         type: github
