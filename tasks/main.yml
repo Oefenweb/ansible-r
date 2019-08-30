@@ -1,6 +1,8 @@
 # tasks file for r
 ---
 - include: repository.yml
+  when:
+    - r_cran_repo == true
   tags:
     - configuration
     - r

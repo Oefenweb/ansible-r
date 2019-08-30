@@ -11,6 +11,7 @@ Set up the latest version of R in Ubuntu systems.
 * `bash` (will not be installed)
 
 #### Variables
+* `r_cran_repo`: [default: `true`]: Whether or not to install R from cran repositories instead of the distribution ones
 
 * `r_version_35`: [default: `false`, for Ubuntu >= `18.04` always `true`]: Whether or not to install R 3.5
 
