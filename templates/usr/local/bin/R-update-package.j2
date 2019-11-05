@@ -6,10 +6,16 @@ if (is.null(argv) | length(argv) < 1) {
   q(status = 1);
 }
 
-package = argv[1];
 type =  ifelse(is.na(argv[2]), '{{ r_packages_type }}', argv[2]);
 lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
 repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
+
+if (type == 'github') {
+  repo = argv[1];
+  package = unlist(strsplit(repo, "/"))[2];
+} else {
+  package = argv[1];
+}
 
 if (package %in% old.packages(lib.loc = lib, repos = repos)[, 'Package'] & type == 'cran') {
   withCallingHandlers({
