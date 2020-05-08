@@ -34,8 +34,12 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
     }, warning = stop);
   } else if (type == 'bioconductor') {
     withCallingHandlers({
-      source('{{ r_bioclite_url }}')
-      biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+      {% if r_version_35 %}
+        BiocManager::install(package, lib = lib, update = FALSE)
+      {% else %}
+        source('{{ r_bioclite_url }}')
+        biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+      {% endif %}
       cat("changed\n");
     }, warning = stop);
   } else if (type == 'github') {

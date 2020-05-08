@@ -2,17 +2,44 @@
 
 argv = commandArgs(trailingOnly = TRUE);
 if (is.null(argv) | length(argv) < 1) {
-  cat("Usage: R-update-package package [lib] [repos]\n");
+  cat("Usage: R-update-package package [type] [lib] [repos]\n");
   q(status = 1);
 }
 
-package = argv[1];
-lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
-repos = ifelse(is.na(argv[3]), '{{ r_packages_repos.rstrip('/') }}', argv[3]);
+type =  ifelse(is.na(argv[2]), '{{ r_packages_type }}', argv[2]);
+lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
+repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
 
-if (package %in% old.packages(lib.loc = lib)[, 'Package']) {
+if (type == 'github') {
+  repo = argv[1];
+  package = unlist(strsplit(repo, "/"))[2];
+} else {
+  package = argv[1];
+}
+
+if (package %in% old.packages(lib.loc = lib, repos = repos)[, 'Package'] & type == 'cran') {
   withCallingHandlers({
     update.packages(package, lib, repos, ask = FALSE);
+    cat("changed\n");
+  }, warning = stop);
+}
+
+if (type == 'bioconductor') {
+  withCallingHandlers({
+    {% if r_version_35 %}
+      BiocManager::install(package, lib = lib, update = FALSE)
+    {% else %}
+      source('{{ r_bioclite_url }}')
+      biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+    {% endif %}
+    cat("changed\n");
+  }, warning = stop);
+}
+
+if (type == 'github') {
+  withCallingHandlers({
+    library(remotes)
+    install_github(repo, lib = lib, force = TRUE)
     cat("changed\n");
   }, warning = stop);
 }

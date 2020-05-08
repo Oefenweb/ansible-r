@@ -14,5 +14,3 @@ r_packages_repos: "{{ r_cran_mirror }}"
 r_packages_lib: /usr/local/lib/R/site-library
 r_packages: []
 r_environment: {}
-
-r_packages_from_github: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'github') | map(attribute='name') | list | length > 0 }}"
