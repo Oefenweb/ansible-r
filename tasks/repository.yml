@@ -1,5 +1,14 @@
 # tasks file for r
 ---
+- name: repository | install dependencies (pre)
+  apt:
+    name: "{{ r_dependencies_pre }}"
+    state: "{{ apt_install_state | default('latest') }}"
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  tags:
+    - r-repository-install-dependencies
+
 - name: repository | add public key
   apt_key:
     id: E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -13,6 +22,7 @@
     repo: "{{ item.type }} {{ item.url }}"
     state: present
     update_cache: true
+    mode: 0644
   with_items: "{{ r_repository }}"
   tags:
     - r-repository-add

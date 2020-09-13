@@ -4,6 +4,9 @@ r_repository:
   - type: deb
     url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}{{ r_version_35 | ternary('-cran35', '') }}/"
 
+r_dependencies_pre:
+  - apt-transport-https
+
 r_dependencies_dummy_package: apt
 r_dependencies:
   - r-base

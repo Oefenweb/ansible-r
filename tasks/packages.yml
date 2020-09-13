@@ -50,7 +50,9 @@
   register: _r_remove_package
   changed_when: "_r_remove_package.stdout_lines[-1] is defined and _r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
-  when: item.state is defined and item.state == 'absent'
+  when:
+    - item.state is defined
+    - item.state == 'absent'
   tags:
     - r-packages-remove
 
@@ -70,6 +72,8 @@
             r_packages_from_bioconductor | ternary ((r_version_35 | ternary (r_preset_package_bioconductor, [])), []) +
             r_packages
         }}"
-  when: item.state is defined and item.state == 'updated'
+  when:
+    - item.state is defined
+    - item.state == 'updated'
   tags:
     - r-packages-update
