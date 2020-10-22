@@ -85,6 +85,18 @@ env:
   - ANSIBLE_VERSION=2.6.1
   - ANSIBLE_VERSION=2.6.0
 
+# ansible >= 2.10 does not support python 2.7
+jobs:
+  exclude:
+    - python: "2.7"
+      env: ANSIBLE_VERSION=latest
+    - python: "2.7"
+      env: ANSIBLE_VERSION=2.10.2
+    - python: "2.7"
+      env: ANSIBLE_VERSION=2.10.1
+    - python: "2.7"
+      env: ANSIBLE_VERSION=2.10.0
+
 branches:
   only:
     - master
