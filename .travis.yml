@@ -9,7 +9,6 @@ python:
 
 env:
   - ANSIBLE_VERSION=latest
-#  - ANSIBLE_VERSION=2.10.2 # not yet released see https://github.com/ansible-community/ansible-build-data/blob/main/2.10/CHANGELOG-v2.10.rst
   - ANSIBLE_VERSION=2.10.1
   - ANSIBLE_VERSION=2.10.0
   - ANSIBLE_VERSION=2.9.14
@@ -85,17 +84,12 @@ env:
   - ANSIBLE_VERSION=2.6.1
   - ANSIBLE_VERSION=2.6.0
 
-# ansible >= 2.10 does not support python 2.7
+# as ansible-lint does not work on old python version
 jobs:
-  exclude:
-    - python: "2.7"
-      env: ANSIBLE_VERSION=latest
-    - python: "2.7"
-      env: ANSIBLE_VERSION=2.10.2
-    - python: "2.7"
-      env: ANSIBLE_VERSION=2.10.1
-    - python: "2.7"
-      env: ANSIBLE_VERSION=2.10.0
+  include:
+    - python: "3.8"
+      env: ANSIBLE_VERSION=latest ANSIBLE_LINT=yes
+
 
 branches:
   only:
@@ -110,7 +104,7 @@ before_install:
 install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
+  - if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT" = "yes"]; then pip install ansible-lint; fi
 
 script:
   # Check the role/playbook's syntax.
@@ -133,7 +127,7 @@ script:
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
 
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then ansible-lint tests/test.yml; fi
+  - if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT" = "yes" ]; then ansible-lint tests/test.yml; fi
 
 notifications:
   email: false
