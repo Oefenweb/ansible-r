@@ -84,12 +84,18 @@ env:
   - ANSIBLE_VERSION=2.6.1
   - ANSIBLE_VERSION=2.6.0
 
-# as ansible-lint does not work on old python version
+
 jobs:
   include:
-    - python: "3.8"
+    - python: "3.8" # as ansible-lint does not work on old python version
       env: ANSIBLE_VERSION=latest ANSIBLE_LINT=yes
-
+  exclude:
+    - python: "2.7"
+      env: ANSIBLE_VERSION=latest
+    - python: "2.7"
+      env: ANSIBLE_VERSION=2.10.2
+    - python: "2.7"
+      env: ANSIBLE_VERSION=2.10.1
 
 branches:
   only:
