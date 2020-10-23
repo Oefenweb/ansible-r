@@ -9,7 +9,7 @@ python:
 
 env:
   - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.10.2
+#  - ANSIBLE_VERSION=2.10.2 # not yet released see https://github.com/ansible-community/ansible-build-data/blob/main/2.10/CHANGELOG-v2.10.rst
   - ANSIBLE_VERSION=2.10.1
   - ANSIBLE_VERSION=2.10.0
   - ANSIBLE_VERSION=2.9.14
