@@ -111,10 +111,12 @@ install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - >
-    if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT_VERSION" = "latest" ]; then
-      pip install ansible-lint;
-    elif [ "$ANSIBLE_VERSION" = "latest" ]; then
-      pip install ansible-lint==$ANSIBLE_LINT_VERSION;
+    if [ -n "$ANSIBLE_LINT_VERSION" ];
+      if [ "$ANSIBLE_LINT_VERSION" = "latest" ]; then
+        pip install ansible-lint;
+      else; then
+        pip install ansible-lint==$ANSIBLE_LINT_VERSION;
+      fi
     fi
 
 script:
