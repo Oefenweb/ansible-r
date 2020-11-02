@@ -140,7 +140,10 @@ script:
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
 
-  - if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT" = "yes" ]; then ansible-lint tests/test.yml; fi
+  - >
+    if [ -n "$ANSIBLE_LINT_VERSION" ]; then
+      ansible-lint tests/test.yml;
+    fi
 
 notifications:
   email: false
