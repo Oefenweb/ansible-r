@@ -46,8 +46,8 @@ env:
 
 jobs:
   include:
-    - python: "3.8" # as ansible-lint does not work on old python version
-      env: ANSIBLE_VERSION=latest ANSIBLE_LINT=yes
+    - python: "3.8"
+      env: ANSIBLE_VERSION=latest ANSIBLE_LINT_VERSION=latest
   exclude:
     - python: "2.7"
       env: ANSIBLE_VERSION=latest
@@ -69,7 +69,14 @@ before_install:
 install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT" = "yes" ]; then pip install ansible-lint; fi
+  - >
+    if [ -n "$ANSIBLE_LINT_VERSION" ]; then
+      if [ "$ANSIBLE_LINT_VERSION" = "latest" ]; then
+        pip install ansible-lint;
+      else
+        pip install ansible-lint==$ANSIBLE_LINT_VERSION;
+      fi
+    fi
 
 script:
   # Check the role/playbook's syntax.
@@ -92,7 +99,10 @@ script:
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
 
-  - if [ "$ANSIBLE_VERSION" = "latest" -a "$ANSIBLE_LINT" = "yes" ]; then ansible-lint tests/test.yml; fi
+  - >
+    if [ -n "$ANSIBLE_LINT_VERSION" ]; then
+      ansible-lint tests/test.yml;
+    fi
 
 notifications:
   email: false
