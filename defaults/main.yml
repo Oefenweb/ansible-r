@@ -1,7 +1,6 @@
 # defaults file for r
 ---
-r_version_35: "{{ (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('18.04', '>=')) }}"
-r_version: "{{ '35' if r_version_35 else '34' }}"
+r_version: "{{ '40' if ansible_distribution_version is version('20.04', '>=') else '35' if ansible_distribution_version is version('18.04', '>=') else '34' }}"
 
 r_cran_mirror: https://cran.rstudio.com/
 r_bioclite_url: https://bioconductor.org/biocLite.R

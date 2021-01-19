@@ -34,7 +34,7 @@
   with_items:
         "{{
             r_packages_from_github | ternary (r_preset_package_remotes, []) +
-            r_packages_from_bioconductor | ternary ((r_version_35 | ternary (r_preset_package_bioconductor, [])), []) +
+            r_packages_from_bioconductor | ternary ((r_version is version('35', '>=') | ternary (r_preset_package_bioconductor, [])), []) +
             r_packages
         }}"
   when: item.state is undefined or item.state == 'present'
@@ -69,7 +69,7 @@
   with_items:
         "{{
             r_packages_from_github | ternary (r_preset_package_remotes, []) +
-            r_packages_from_bioconductor | ternary ((r_version_35 | ternary (r_preset_package_bioconductor, [])), []) +
+            r_packages_from_bioconductor | ternary ((r_version is version('35', '>=') | ternary (r_preset_package_bioconductor, [])), []) +
             r_packages
         }}"
   when:

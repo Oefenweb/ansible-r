@@ -1,10 +1,5 @@
 # tasks file for r
 ---
-- name: Check r_version_35
-  debug:
-    msg: "[WARNING] r_version_35 variable is obsolete, you should use r_version now"
-  when: r_version_35 is defined
-
 - include: repository.yml
   tags:
     - configuration
