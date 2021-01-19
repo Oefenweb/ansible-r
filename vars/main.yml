@@ -1,6 +1,6 @@
 # vars file for r
 ---
-r_repository_suffix: "-cran{{ '40' if r_version is version('40', '==') else '35' if r_version is version('35', '==') else '' }}"
+r_repository_suffix: "{{ '-cran' + r_version if r_version is version('35', '>=') else '' }}"
 r_repository:
   - type: deb
     url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}{{ r_repository_suffix }}/"
