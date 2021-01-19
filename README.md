@@ -12,7 +12,7 @@ Set up the latest version of R in Ubuntu systems.
 
 #### Variables
 
-* `r_version_35`: [default: `false`, for `Ubuntu >= 18.04` always `true`]: Whether or not to install R 3.5+
+* `r_version`: [default: `34`, `35` for `Ubuntu >= 18.04`, `40` for `Ubuntu >= 20.04`]: Version to install
 
 * `r_cran_mirror`: [default: `https://cran.rstudio.com/`]: Your favorite [CRAN mirror](https://cran.r-project.org/mirrors.html)
 * `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](https://bioconductor.org/) installs
