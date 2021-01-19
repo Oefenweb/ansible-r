@@ -32,11 +32,11 @@
   register: _r_install_package
   changed_when: "_r_install_package.stdout_lines[-1] is defined and _r_install_package.stdout_lines[-1] == 'changed'"
   with_items:
-        "{{
-            r_packages_from_github | ternary (r_preset_package_remotes, []) +
-            r_packages_from_bioconductor | ternary ((r_version_35 | ternary (r_preset_package_bioconductor, [])), []) +
-            r_packages
-        }}"
+    "{{
+        r_packages_from_github | ternary (r_preset_package_remotes, []) +
+        r_packages_from_bioconductor | ternary ((r_version is version('35', '>=') | ternary (r_preset_package_bioconductor, [])), []) +
+        r_packages
+    }}"
   when: item.state is undefined or item.state == 'present'
   tags:
     - r-packages-install
@@ -67,11 +67,11 @@
   register: _r_update_package
   changed_when: "_r_update_package.stdout_lines[-1] is defined and _r_update_package.stdout_lines[-1] == 'changed'"
   with_items:
-        "{{
-            r_packages_from_github | ternary (r_preset_package_remotes, []) +
-            r_packages_from_bioconductor | ternary ((r_version_35 | ternary (r_preset_package_bioconductor, [])), []) +
-            r_packages
-        }}"
+    "{{
+        r_packages_from_github | ternary (r_preset_package_remotes, []) +
+        r_packages_from_bioconductor | ternary ((r_version is version('35', '>=') | ternary (r_preset_package_bioconductor, [])), []) +
+        r_packages
+    }}"
   when:
     - item.state is defined
     - item.state == 'updated'

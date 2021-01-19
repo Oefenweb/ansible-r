@@ -26,7 +26,7 @@ if (package %in% old.packages(lib.loc = lib, repos = repos)[, 'Package'] & type 
 
 if (type == 'bioconductor') {
   withCallingHandlers({
-    {% if r_version_35 %}
+    {% if r_version is version('35', '>=') %}
       BiocManager::install(package, lib = lib, update = FALSE)
     {% else %}
       source('{{ r_bioclite_url }}')

@@ -34,7 +34,7 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
     }, warning = stop);
   } else if (type == 'bioconductor') {
     withCallingHandlers({
-      {% if r_version_35 %}
+      {% if r_version is version('35', '>=') %}
         BiocManager::install(package, lib = lib, update = FALSE)
       {% else %}
         source('{{ r_bioclite_url }}')
