@@ -1,6 +1,6 @@
 ## r
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-r.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-r)
+[![CI](https://github.com/Oefenweb/ansible-r/workflows/CI/badge.svg)](https://github.com/Oefenweb/ansible-r/actions?query=workflow%3ACI)
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-r-blue.svg)](https://galaxy.ansible.com/Oefenweb/r/)
 
 Set up the latest version of R in Ubuntu systems.
