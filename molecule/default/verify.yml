@@ -2,4 +2,13 @@
 - name: Verify
   hosts: all
   become: true
-  tasks: []
+  tasks:
+    - name: test r installation
+      shell: >
+        Rscript -e  'print(gsub("I","O","PING"))'
+        | grep -q 'PONG'
+        && (echo 'Availability test: pass' && exit 0)
+        || (echo 'Availability test: fail' && exit 1)
+      changed_when: false
+      tags:
+        - skip_ansible_lint
