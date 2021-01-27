@@ -6,6 +6,7 @@ r_repository:
     url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}{{ r_repository_suffix }}/"
 
 r_dependencies_pre:
+  - software-properties-common
   - dirmngr
   - apt-transport-https
 

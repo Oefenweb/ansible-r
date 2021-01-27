@@ -9,6 +9,9 @@ Set up the latest version of R in Ubuntu systems.
 
 * `littler` (will be installed)
 * `bash` (will not be installed)
+* `software-properties-common` (will be installed)
+* `dirmngr` (will be installed)
+* `apt-transport-https` (will be installed)
 
 #### Variables
 
