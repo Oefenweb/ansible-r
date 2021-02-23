@@ -8,18 +8,22 @@
     group: "{{ r_scripts_install_group }}"
     mode: 0755
   with_items:
+    - src: R-list-installed-packages.j2
+      dest: R-list-installed-packages
     - src: R-install-package.j2
       dest: R-install-package
     - src: R-remove-package.j2
       dest: R-remove-package
     - src: R-update-package.j2
       dest: R-update-package
-    - src: R-update-packages.j2
-      dest: R-update-packages
     - src: R-install-requirements.j2
       dest: R-install-requirements
   tags:
     - r-packages-copy-r-scripts
+
+- name: packages | init the package lists
+  include: get_list_packages.yml
+  when: r_list_packages_once
 
 - name: packages | install
   command: >
@@ -37,7 +41,9 @@
         r_packages_from_bioconductor | ternary ((r_version is version('35', '>=') | ternary (r_preset_package_bioconductor, [])), []) +
         r_packages
     }}"
-  when: item.state is undefined or item.state == 'present'
+  when:
+    - r_list_packages_once == false or item.name not in r_installed_packages
+    - item.state is undefined or item.state == 'present'
   tags:
     - r-packages-install
 
@@ -51,6 +57,7 @@
   changed_when: "_r_remove_package.stdout_lines[-1] is defined and _r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
   when:
+    - r_list_packages_once == false or item.name in r_installed_packages
     - item.state is defined
     - item.state == 'absent'
   tags:
