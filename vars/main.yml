@@ -1,4 +1,4 @@
-# vars file for r
+# vars file
 ---
 r_repository_suffix: "{{ '-cran' + r_version if r_version is version('35', '>=') else '' }}"
 r_repository:

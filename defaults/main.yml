@@ -1,4 +1,4 @@
-# defaults file for r
+# defaults file
 ---
 r_version: "{{ '40' if ansible_distribution_version is version('20.04', '>=') else '35' if ansible_distribution_version is version('18.04', '>=') else '34' }}"
 

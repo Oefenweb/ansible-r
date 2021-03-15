@@ -1,4 +1,4 @@
-# test file for r
+# test file
 ---
 - hosts: all
   remote_user: vagrant

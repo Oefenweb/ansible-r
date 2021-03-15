@@ -1,6 +1,7 @@
-# meta file for r
+# meta file
 ---
 galaxy_info:
+  namespace: oefenweb
   role_name: r
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
