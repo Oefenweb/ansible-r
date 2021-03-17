@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   namespace: oefenweb
-  role_name: r
+  role_name: latest_r
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up the latest version of R in Ubuntu systems
