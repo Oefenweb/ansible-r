@@ -23,7 +23,7 @@
 
 - name: packages | install
   command: >
-    R-install-package
+    {{ r_scripts_install_path }}/R-install-package
       {{ item.name }}
       {{ item.type | default(r_packages_type) }}
       {{ item.lib | default(r_packages_lib) }}
@@ -44,7 +44,7 @@
 - name: packages | remove
   command: >
     R-remove-package
-      {{ item.name }}
+      {{ r_scripts_install_path }}/{{ item.name }}
       {% if item.lib is defined %}{{ item.lib }}{% endif %}
   environment: "{{ r_environment }}"
   register: _r_remove_package
@@ -58,7 +58,7 @@
 
 - name: packages | update
   command: >
-    R-update-package
+    {{ r_scripts_install_path }}/R-update-package
       {{ item.name }}
       {{ item.type | default(r_packages_type) }}
       {{ item.lib | default(r_packages_lib) }}
