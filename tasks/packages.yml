@@ -2,8 +2,8 @@
 ---
 - name: packages | copy r scripts
   template:
-    src: "usr/local/bin/{{ item.src }}"
-    dest: "/usr/local/bin/{{ item.dest }}"
+    src: "{{ item.src }}"
+    dest: "{{ r_scripts_install_path }}/{{ item.dest }}"
     owner: root
     group: root
     mode: 0755
