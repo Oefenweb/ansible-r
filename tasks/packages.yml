@@ -4,8 +4,6 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ r_scripts_install_path }}/{{ item.dest }}"
-    owner: root
-    group: root
     mode: 0755
   with_items:
     - src: R-install-package.j2
