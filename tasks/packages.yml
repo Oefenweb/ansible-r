@@ -43,8 +43,8 @@
 
 - name: packages | remove
   command: >
-    R-remove-package
-      {{ r_scripts_install_path }}/{{ item.name }}
+    {{ r_scripts_install_path }}/R-remove-package
+      {{ item.name }}
       {% if item.lib is defined %}{{ item.lib }}{% endif %}
   environment: "{{ r_environment }}"
   register: _r_remove_package
