@@ -35,7 +35,9 @@ Set up the latest version of R in Ubuntu systems.
 
 * `r_environment`: [default: `{}`]: Environment variables to set (during the install, update or delete packages tasks)
 
-* `+r_scripts_install_path:`: [default: `/usr/local/bin`]: The path where to install the R script used to install,update and delete R package
+* `r_scripts_install_path:`: [default: `/usr/local/bin`]: The path where to install the R script used to install, update and delete R package
+* `r_scripts_install_owner`: [default: `root`]: The owner of the R script to install, update and delete R package
+* `r_scripts_install_group`: [default: `root`]: The group of the R script to install, update and delete R package
 
 ## Dependencies
 
