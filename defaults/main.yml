@@ -16,5 +16,5 @@ r_packages: []
 r_environment: {}
 
 r_scripts_install_path: /usr/local/bin
-r_scripts_install_owner: "{{ ansible_user_id | default('root') }}"
-r_scripts_install_group: "{{ r_scripts_install_owner | default('root') }}"
+r_scripts_install_owner: root
+r_scripts_install_group: root
