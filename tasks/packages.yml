@@ -42,7 +42,7 @@
         r_packages
     }}"
   when:
-    - r_list_packages_once == false or item.name not in r_installed_packages
+    - not r_list_packages_once or item.name not in r_installed_packages
     - item.state is undefined or item.state == 'present'
   tags:
     - r-packages-install
@@ -57,7 +57,7 @@
   changed_when: "_r_remove_package.stdout_lines[-1] is defined and _r_remove_package.stdout_lines[-1] == 'changed'"
   with_items: "{{ r_packages }}"
   when:
-    - r_list_packages_once == false or item.name in r_installed_packages
+    - not r_list_packages_once or item.name in r_installed_packages
     - item.state is defined
     - item.state == 'absent'
   tags:
