@@ -11,6 +11,6 @@
 
 - name: packages | set_fact list installed packages
   set_fact:
-    r_installed_packages: "{{ _r_installed_packages.stdout.split(',') }}"
+    r_installed_packages: "{{ _r_installed_packages.stdout_lines }}"
   tags:
     - r-list-installed-packages
