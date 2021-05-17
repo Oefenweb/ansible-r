@@ -21,9 +21,22 @@
   tags:
     - r-packages-copy-r-scripts
 
-- name: packages | init the package lists
-  include: get_list_packages.yml
-  when: r_list_packages_once
+- block:
+
+    - name: packages | list installed packages
+      command: >
+        R-list-installed-packages {{ r_packages_lib }}
+      environment: "{{ r_environment }}"
+      register: _r_installed_packages
+      changed_when: false
+
+    - name: packages | set_fact list installed packages
+      set_fact:
+        r_installed_packages: "{{ _r_installed_packages.stdout_lines }}"
+
+  when: r_list_packages_once | bool
+  tags:
+    - r-packages-list-installed
 
 - name: packages | install
   command: >
