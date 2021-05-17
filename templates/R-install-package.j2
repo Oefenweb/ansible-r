@@ -16,7 +16,9 @@ if (type == 'github') {
   package = argv[1];
 }
 
+{% if r_list_packages_once == false %}
 if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+{% endif %}
   if (type == 'cran') {
     repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
 
@@ -52,4 +54,6 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
     cat("Unrecognised type\n");
     q(status = 1);
   }
+{% if r_list_packages_once == false %}
 }
+{% endif %}

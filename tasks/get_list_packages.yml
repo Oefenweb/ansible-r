@@ -1,0 +1,16 @@
+---
+
+- name: packages | list installed packages
+  command: >
+    R-list-installed-packages {{ r_packages_lib }}
+  environment: "{{ r_environment }}"
+  register: _r_installed_packages
+  changed_when: false
+  tags:
+    - r-list-installed-packages
+
+- name: packages | set_fact list installed packages
+  set_fact:
+    r_installed_packages: "{{ _r_installed_packages.stdout_lines }}"
+  tags:
+    - r-list-installed-packages

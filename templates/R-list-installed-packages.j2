@@ -1,0 +1,12 @@
+#!/usr/bin/env Rscript
+
+argv = commandArgs(trailingOnly = TRUE);
+if (is.null(argv) | length(argv) < 1) {
+  cat("Usage: R-list-installed-packages [lib]\n");
+  q(status = 1);
+}
+
+lib = ifelse(is.na(argv[1]), '{{ r_packages_lib }}', argv[1]);
+
+cat(paste(installed.packages(lib.loc = lib)[, 'Package'], collapse="\n"))
+
