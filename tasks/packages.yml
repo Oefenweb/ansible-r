@@ -16,6 +16,8 @@
       dest: R-remove-package
     - src: R-update-package.j2
       dest: R-update-package
+    - src: R-update-packages.j2
+      dest: R-update-packages
     - src: R-install-requirements.j2
       dest: R-install-requirements
   tags:
