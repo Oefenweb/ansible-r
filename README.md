@@ -14,6 +14,7 @@ Set up the latest version of R in Ubuntu systems.
 * `apt-transport-https` (will be installed)
 
 #### Variables
+* `r_cran_repo`: [default: `true`]: Whether or not to install R from cran repositories instead of the distribution ones
 
 * `r_version`: [default: `34`, `35` for `Ubuntu >= 18.04`, `40` for `Ubuntu >= 20.04`]: Version to install
 
