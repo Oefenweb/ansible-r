@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: test r installation
-      shell: >
+      ansible.builtin.shell: >
         Rscript -e  'print(gsub("I","O","PING"))'
         | grep -q 'PONG'
         && (echo 'Availability test: pass' && exit 0)

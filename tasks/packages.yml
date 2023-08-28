@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: packages | copy r scripts
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ r_scripts_install_path }}/{{ item.dest }}"
     owner: "{{ r_scripts_install_owner }}"
@@ -23,25 +23,24 @@
   tags:
     - r-packages-copy-r-scripts
 
-- block:
-
+- name: installed packages
+  when: r_list_packages_once | bool
+  tags:
+    - r-packages-list-installed
+  block:
     - name: packages | list installed packages
-      command: >
+      ansible.builtin.command: >
         R-list-installed-packages {{ r_packages_lib }}
       environment: "{{ r_environment }}"
       register: _r_installed_packages
       changed_when: false
 
     - name: packages | set_fact list installed packages
-      set_fact:
+      ansible.builtin.set_fact:
         r_installed_packages: "{{ _r_installed_packages.stdout_lines }}"
 
-  when: r_list_packages_once | bool
-  tags:
-    - r-packages-list-installed
-
 - name: packages | install
-  command: >
+  ansible.builtin.command: >
     {{ r_scripts_install_path }}/R-install-package
     {{ item.name }}
     {{ item.type | default(r_packages_type) }}
@@ -63,7 +62,7 @@
     - r-packages-install
 
 - name: packages | remove
-  command: >
+  ansible.builtin.command: >
     {{ r_scripts_install_path }}/R-remove-package
     {{ item.name }}
     {% if item.lib is defined %}{{ item.lib }}{% endif %}
@@ -79,7 +78,7 @@
     - r-packages-remove
 
 - name: packages | update
-  command: >
+  ansible.builtin.command: >
     {{ r_scripts_install_path }}/R-update-package
     {{ item.name }}
     {{ item.type | default(r_packages_type) }}
