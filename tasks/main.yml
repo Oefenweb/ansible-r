@@ -1,18 +1,21 @@
 # tasks file
 ---
-- include: repository.yml
+- name: repository
+  ansible.builtin.import_tasks: repository.yml
   tags:
     - configuration
     - r
     - r-repository
 
-- include: install.yml
+- name: install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - configuration
     - r
     - r-install
 
-- include: packages.yml
+- name: packages
+  ansible.builtin.import_tasks: packages.yml
   tags:
     - configuration
     - r
