@@ -51,7 +51,7 @@ None
 ---
 - hosts: all
   roles:
-    - r
+    - oefenweb.r
 ```
 
 ##### Advanced
@@ -60,7 +60,7 @@ None
 ---
 - hosts: all
   roles:
-    - r
+    - oefenweb.r
   vars:
     r_install_dev: true
     # apt packages
