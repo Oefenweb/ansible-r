@@ -44,14 +44,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - distro: debian8
-          - distro: debian9
-          - distro: debian10
-          - distro: ubuntu1604
-            ansible-version: '>=2.10, <2.11'
-          - distro: ubuntu1604
           - distro: ubuntu1804
           - distro: ubuntu2004
+          - distro: ubuntu2204
 
     steps:
       - name: Check out the codebase
@@ -65,8 +60,8 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies
-        run: pip install 'ansible${{ matrix.ansible-version }}' molecule-plugins[docker] docker
-
+        run: |
+          pip install 'ansible${{ matrix.ansible-version }}' molecule-plugins[docker] docker
       - name: Run Molecule tests
         run: |
           molecule test

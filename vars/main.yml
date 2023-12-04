@@ -10,10 +10,9 @@ r_dependencies_pre:
   - dirmngr
   - apt-transport-https
 
-r_dependencies_dummy_package: apt
 r_dependencies:
   - r-base
-  - "{{ r_install_dev | ternary('r-base-dev', r_dependencies_dummy_package) }}"
+  - "{{ r_install_dev | ternary('r-base-dev', '') }}"
 
 r_packages_from_github: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'github') | map(attribute='name') | list | length > 0 }}"
 
