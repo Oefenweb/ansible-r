@@ -2,7 +2,7 @@
 ---
 - name: install | dependencies
   ansible.builtin.apt:
-    name: "{{ r_dependencies }}"
+    name: "{{ ' '.join(r_dependencies).split() }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
