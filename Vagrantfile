@@ -25,6 +25,13 @@ boxes = [
     :cpu => "50",
     :ram => "512"
   },
+  {
+    :name => "ubuntu-2404",
+    :box => "bento/ubuntu-24.04",
+    :ip => '10.0.0.16',
+    :cpu => "50",
+    :ram => "512"
+  },
 ]
 
 Vagrant.configure("2") do |config|
