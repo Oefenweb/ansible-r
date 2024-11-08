@@ -3,12 +3,5 @@
   hosts: all
   become: true
   tasks:
-    - name: test r installation
-      ansible.builtin.shell: >
-        Rscript -e  'print(gsub("I","O","PING"))'
-        | grep -q 'PONG'
-        && (echo 'Availability test: pass' && exit 0)
-        || (echo 'Availability test: fail' && exit 1)
-      changed_when: false
-      tags:
-        - skip_ansible_lint
+    - name: include tasks
+      ansible.builtin.import_tasks: "{{ playbook_dir }}/../../tests/tasks/post.yml"

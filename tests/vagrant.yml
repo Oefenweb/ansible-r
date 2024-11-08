@@ -5,3 +5,6 @@
   become: true
   roles:
     - ../../
+  post_tasks:
+    - name: include tasks
+      ansible.builtin.import_tasks: "{{ playbook_dir }}/tasks/post.yml"
