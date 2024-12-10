@@ -6,7 +6,7 @@
     dest: "{{ r_scripts_install_path }}/{{ item.dest }}"
     owner: "{{ r_scripts_install_owner }}"
     group: "{{ r_scripts_install_group }}"
-    mode: 0755
+    mode: '0755'
   with_items:
     - src: R-list-installed-packages.j2
       dest: R-list-installed-packages
