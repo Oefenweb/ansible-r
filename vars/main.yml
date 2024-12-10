@@ -1,14 +1,18 @@
 # vars file
 ---
+r_keyring_id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+r_keyring_dst: /usr/share/keyrings/cran-r.gpg
 r_repository_suffix: "{{ '-cran' + r_version if r_version is version('35', '>=') else '' }}"
-r_repository:
+r_repositories:
+  - type: "deb [signed-by={{ r_keyring_dst }}]"
+    url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}{{ r_repository_suffix }}/"
   - type: deb
     url: "{{ r_cran_mirror }}/bin/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}{{ r_repository_suffix }}/"
+    state: absent
 
 r_dependencies_pre:
   - software-properties-common
   - dirmngr
-  - gpg-agent
   - apt-transport-https
 
 r_dependencies:

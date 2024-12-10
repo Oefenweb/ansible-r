@@ -20,7 +20,7 @@ Set up the latest version of R in Ubuntu systems.
 * `r_cran_mirror`: [default: `https://cran.rstudio.com/`]: Your favorite [CRAN mirror](https://cran.r-project.org/mirrors.html)
 * `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](https://bioconductor.org/) installs
 
-* `r_install_dev`: [default: `false`]: Whether or not install the `r-base-dev` package
+* `r_install_dev`: [default: `false`]: Whether install the `r-base-dev` package
 * `r_install`: [default: `['littler']`]: Additional (apt) packages to install (e.g. `r-recommended`)
 
 * `r_packages_lib`: [default: `/usr/local/lib/R/site-library`]: The (default) library directory to install packages to
@@ -33,7 +33,7 @@ Set up the latest version of R in Ubuntu systems.
 * `r_packages.{n}.lib`: [optional, default: `r_packages_lib`]: The library directory to install the package to
 * `r_packages.{n}.repos`: [optional, default: `r_packages_repos`]: The URL to install the package from
 
-* `r_environment`: [default: `{}`]: Environment variables to set (during the install, update or delete packages tasks)
+* `r_environment`: [default: `{}`]: Environment variables to set (during the installation, update or delete packages tasks)
 
 * `r_scripts_install_path:`: [default: `/usr/local/bin`]: The path where to install the R script used to install, update and delete R package
 * `r_scripts_install_owner`: [default: `root`]: The owner of the R script to install, update and delete R package
