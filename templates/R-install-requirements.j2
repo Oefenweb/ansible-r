@@ -27,40 +27,21 @@ while IFS= read -r requirement; do
   requirementName="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $1}')";
   requirementVersion="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $2}')";
 
-  if [ "${requirementType}" == 'github' ]; then
-    installCommand="devtools::install_github(\"${requirementName}\")";
-    installCommandNew="pak::pak(\"${requirementName}\")";
+  installCommand="pak::pkg_install(\"${requirementName}\")";
+  if [ -n "${requirementVersion}" ]; then
+    installCommand="pak::pkg_install(\"${requirementName}@${requirementVersion}\")";
+  fi
+
+  if [ "${requirementType}" == 'bitbucket' ]; then
+    installCommand="remotes::install_bitbucket(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_github(\"${requirementName}\", ref=\"${requirementVersion}\")";
-      installCommandNew="pak::pak(\"${requirementName}@${requirementVersion}\")";
-    fi
-  elif [ "${requirementType}" == 'bitbucket' ]; then
-    installCommand="devtools::install_bitbucket(\"${requirementName}\")";
-    installCommandNew="remotes::install_bitbucket(\"${requirementName}\")";
-    if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
-      installCommandNew="remotes::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
-    fi
-  else
-    installCommand="devtools::install_cran(\"${requirementName}\")";
-    installCommandNew="pak::pak(\"${requirementName}\")";
-    if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_version(\"${requirementName}\", version=\"${requirementVersion}\")";
-      installCommandNew="pak::pak(\"${requirementName}@${requirementVersion}\")";
+      installCommand="remotes::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
     fi
   fi
 
   Rscript -e "
   withCallingHandlers({
-    if (!('devtools' %in% installed.packages()[, 'Package'])) {
-      install.packages('devtools');
-    }
-    is_new_devtools = compareVersion(as.character(packageVersion('devtools')), '2.5.0') > -1
-    if (is_new_devtools) {
-      ${installCommandNew}
-    } else {
-      ${installCommand}
-    }
+    ${installCommand}
   }, warning = stop)
   ";
 done < "${requirementsFile}"

@@ -13,7 +13,7 @@ r_packages:
   - name: DBI
     state: present
 
-  - name: DBI
+  - name: lenght
     repos: https://ftp.ussg.iu.edu/CRAN/
     lib: /tmp
 

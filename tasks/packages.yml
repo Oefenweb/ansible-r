@@ -39,18 +39,6 @@
       ansible.builtin.set_fact:
         r_installed_packages: "{{ _r_installed_packages.stdout_lines }}"
 
-- name: packages | debug
-  debug:
-    var:
-      "{{
-          r_packages_from_cran | ternary (r_preset_package_pak, []) +
-          r_packages_from_github | ternary (r_preset_package_pak, []) +
-          r_packages_from_bitbucket | ternary (r_preset_package_remotes, []) +
-          r_packages_from_bioconductor | ternary (r_preset_package_pak, []) +
-          r_packages
-      }}"
-  failed_when: true
-
 - name: packages | install
   ansible.builtin.command: >
     {{ r_scripts_install_path }}/R-install-package

@@ -34,23 +34,23 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
 {% endif %}
   if (type == 'cran') {
     withCallingHandlers({
-      pak::pkg_install(package, lib = lib, update = FALSE);
+      pak::pkg_install(package, lib = lib, upgrade = FALSE);
       cat("changed\n");
     }, warning = stop);
   } else {
     if (type == 'bioconductor') {
       withCallingHandlers({
-        pak::pak(paste('bioc', package, sep='::'), lib = lib, update = FALSE);
+        pak::pkg_install(paste('bioc', package, sep='::'), lib = lib, upgrade = FALSE);
         cat("changed\n");
       }, warning = stop);
     } else if (type == 'github') {
       withCallingHandlers({
-        pak::pak(repo, lib = lib, update = FALSE);
+        pak::pkg_install(repo, lib = lib, upgrade = FALSE);
         cat("changed\n");
       }, warning = stop);
     } else if (type == 'bitbucket') {
       withCallingHandlers({
-        remotes::install_bitbucket(repo, lib = lib, update = FALSE);
+        remotes::install_bitbucket(repo, lib = lib, upgrade = FALSE);
         cat("changed\n");
       }, warning = stop);
     } else {
