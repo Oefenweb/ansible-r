@@ -34,24 +34,36 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
       install.packages(package, lib, repos);
       cat("changed\n");
     }, warning = stop);
-  } else if (type == 'bioconductor') {
-    withCallingHandlers({
-      {% if r_version is version('35', '>=') %}
-        pak::pak(paste("bioc", package, sep="::"), lib = lib, update = FALSE)
-      {% else %}
-        source('{{ r_bioclite_url }}')
-        biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
-      {% endif %}
-      cat("changed\n");
-    }, warning = stop);
-  } else if (type == 'github') {
-    withCallingHandlers({
-      pak::pak(repo, lib = lib)
-      cat("changed\n");
-    }, warning = stop);
   } else {
-    cat("Unrecognised type\n");
-    q(status = 1);
+    is_new_devtools = compareVersion(as.character(packageVersion("devtools")), "2.5.0") > -1
+    if (type == 'bioconductor') {
+      withCallingHandlers({
+        {% if r_version is version('35', '>=') %}
+          if (is_new_devtools) {
+            pak::pak(paste("bioc", package, sep="::"), lib = lib, update = FALSE)
+          } else {
+            BiocManager::install(package, lib = lib, update = FALSE)
+          }
+        {% else %}
+          source('{{ r_bioclite_url }}')
+          biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
+        {% endif %}
+        cat("changed\n");
+      }, warning = stop);
+    } else if (type == 'github') {
+      withCallingHandlers({
+        if (is_new_devtools) {
+          pak::pak(repo, lib = lib)
+        } else {
+          library(remotes)
+          install_github(repo, lib = lib)
+        }
+        cat("changed\n");
+      }, warning = stop);
+    } else {
+      cat("Unrecognised type\n");
+      q(status = 1);
+    }
   }
 {% if not r_list_packages_once %}
 }
