@@ -6,4 +6,4 @@
     - name: include vars
       ansible.builtin.include_vars: "{{ playbook_dir }}/../../tests/vars/main.yml"
   roles:
-    - ../../
+    - ../../../
