@@ -28,19 +28,19 @@ while IFS= read -r requirement; do
   requirementVersion="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $2}')";
 
   if [ "${requirementType}" == 'github' ]; then
-    installCommand="devtools::install_github(\"${requirementName}\")";
+    installCommand="pak::pak(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_github(\"${requirementName}\", ref=\"${requirementVersion}\")";
+      installCommand="pak::pak(\"${requirementName}@${requirementVersion}\")";
     fi
   elif [ "${requirementType}" == 'bitbucket' ]; then
-    installCommand="devtools::install_bitbucket(\"${requirementName}\")";
+    installCommand="remotes::install_bitbucket(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
+      installCommand="remotes::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
     fi
   else
-    installCommand="devtools::install_cran(\"${requirementName}\")";
+    installCommand="pak::pak(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_version(\"${requirementName}\", version=\"${requirementVersion}\")";
+      installCommand="pak::pak(\"${requirementName}@${requirementVersion}\")";
     fi
   fi
 
