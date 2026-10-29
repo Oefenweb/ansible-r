@@ -17,51 +17,40 @@ if (type == 'github') {
   package = argv[1];
 }
 
+if (!('pak' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+  install.packages(
+    'pak',
+    repos = sprintf(
+      "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+      .Platform$pkgType,
+      R.Version()$os,
+      R.Version()$arch
+    )
+  );
+}
+
 {% if not r_list_packages_once %}
 if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
 {% endif %}
   if (type == 'cran') {
-    # Temporary fix for: https://github.com/r-lib/xml2/issues/231
-    if (package %in% c('devtools', 'xml2')) {
-      if (!('withr' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
-        install.packages('withr', lib, repos);
-      }
-      withr::with_makevars(c(CXX = 'g++ -std=c++11'), install.packages('xml2', lib, repos));
-    }
-
     withCallingHandlers({
-      install.packages(package, lib, repos);
+      pak::pkg_install(package, lib = lib, update = FALSE);
       cat("changed\n");
     }, warning = stop);
   } else {
-    if (!('devtools' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
-      install.packages('devtools', lib, repos);
-    }
-    is_new_devtools = compareVersion(as.character(packageVersion('devtools')), '2.5.0') > -1;
     if (type == 'bioconductor') {
       withCallingHandlers({
-        {% if r_version is version('35', '>=') %}
-          if (is_new_devtools) {
-            pak::pak(paste('bioc', package, sep='::'), lib = lib, update = FALSE);
-          } else {
-            BiocManager::install(package, lib = lib, update = FALSE);
-          }
-        {% else %}
-          source('{{ r_bioclite_url }}');
-          biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE);
-        {% endif %}
+        pak::pak(paste('bioc', package, sep='::'), lib = lib, update = FALSE);
         cat("changed\n");
       }, warning = stop);
     } else if (type == 'github') {
       withCallingHandlers({
-        if (is_new_devtools) {
-          pak::pak(repo, lib = lib);
-        } else {
-          if (!('remotes' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
-            install.packages('remotes', lib, repos);
-          }
-          remotes::install_github(repo, lib = lib);
-        }
+        pak::pak(repo, lib = lib, update = FALSE);
+        cat("changed\n");
+      }, warning = stop);
+    } else if (type == 'bitbucket') {
+      withCallingHandlers({
+        remotes::install_bitbucket(repo, lib = lib, update = FALSE);
         cat("changed\n");
       }, warning = stop);
     } else {

@@ -19,12 +19,15 @@ r_dependencies:
   - r-base
   - "{{ r_install_dev | ternary('r-base-dev', '') }}"
 
+r_packages_from_cran: "{{ (r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'cran')) + (r_packages | selectattr('type', 'undefined')) | map(attribute='name') | list | length > 0 }}"
 r_packages_from_github: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'github') | map(attribute='name') | list | length > 0 }}"
+r_packages_from_bitbucket: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'bitbucket') | map(attribute='name') | list | length > 0 }}"
+r_packages_from_bioconductor: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'bioconductor') | map(attribute='name') | list | length > 0 }}"
 
+r_preset_package_pak:
+  - name: pak
 r_preset_package_remotes:
   - name: remotes
-
-r_packages_from_bioconductor: "{{ r_packages | selectattr('type', 'defined') | selectattr('type', 'equalto', 'bioconductor') | map(attribute='name') | list | length > 0 }}"
 
 r_preset_package_bioconductor:
   - name: BiocManager
