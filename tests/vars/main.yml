@@ -24,5 +24,5 @@ r_packages:
   - name: shiny
     repos: https://cran.rstudio.com/
 
-  - name: mangothecat/franc
+  - name: Oefenweb/r-dummy
     type: github
