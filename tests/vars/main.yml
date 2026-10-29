@@ -10,7 +10,7 @@ r_packages:
     state: present
 
   - name: DBI
-    repos: https://mirror.lyrahosting.com/CRAN/
+    repos: https://ftp.ussg.iu.edu/CRAN/
     lib: /tmp
 
   - name: colorspace
