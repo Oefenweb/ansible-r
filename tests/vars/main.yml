@@ -1,5 +1,10 @@
 # vars file
 ---
+r_install:
+  - littler
+
+  - libuv1-dev
+
 r_packages:
   - name: DBI
     state: present
