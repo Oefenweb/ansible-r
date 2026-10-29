@@ -3,6 +3,10 @@
 r_install:
   - littler
 
+  # Needed for devtools
+  - libcurl4-gnutls-dev
+  - libxml2-dev
+
   - libuv1-dev
 
 r_packages:
