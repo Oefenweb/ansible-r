@@ -7,6 +7,3 @@
       ansible.builtin.include_vars: "{{ playbook_dir }}/../../tests/vars/main.yml"
   roles:
     - ../../
-  post_tasks:
-    - name: include tasks
-      ansible.builtin.import_tasks: "{{ playbook_dir }}/tasks/post.yml"
