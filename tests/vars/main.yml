@@ -1,0 +1,28 @@
+# vars file
+---
+r_install:
+  - littler
+
+  - libuv1-dev
+
+r_packages:
+  - name: DBI
+    state: present
+
+  - name: DBI
+    repos: https://ftp.ussg.iu.edu/CRAN/
+    lib: /tmp
+
+  - name: colorspace
+
+  - name: foreign
+    state: absent
+
+  - name: Biobase
+    type: bioconductor
+
+  - name: shiny
+    repos: https://cran.rstudio.com/
+
+  - name: Oefenweb/r-dummy
+    type: github
