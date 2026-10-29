@@ -10,7 +10,7 @@ r_packages:
     state: present
 
   - name: DBI
-    repos: https://lib.ugent.be/CRAN/
+    repos: https://mirror.lyrahosting.com/CRAN/
     lib: /tmp
 
   - name: colorspace
