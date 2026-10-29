@@ -28,5 +28,5 @@ r_packages:
   - name: shiny
     repos: https://cran.rstudio.com/
 
-  - name: Oefenweb/r-dummy
+  - name: tidyverse/stringr
     type: github

@@ -37,26 +37,24 @@ if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
       pak::pkg_install(package, lib = lib, upgrade = FALSE);
       cat("changed\n");
     }, warning = stop);
+  } else if (type == 'github') {
+    withCallingHandlers({
+      pak::pkg_install(repo, lib = lib, upgrade = FALSE);
+      cat("changed\n");
+    }, warning = stop);
+  } else if (type == 'bitbucket') {
+    withCallingHandlers({
+      remotes::install_bitbucket(repo, lib = lib, upgrade = FALSE);
+      cat("changed\n");
+    }, warning = stop);
+  } else if (type == 'bioconductor') {
+    withCallingHandlers({
+      pak::pkg_install(paste('bioc', package, sep='::'), lib = lib, upgrade = FALSE);
+      cat("changed\n");
+    }, warning = stop);
   } else {
-    if (type == 'bioconductor') {
-      withCallingHandlers({
-        pak::pkg_install(paste('bioc', package, sep='::'), lib = lib, upgrade = FALSE);
-        cat("changed\n");
-      }, warning = stop);
-    } else if (type == 'github') {
-      withCallingHandlers({
-        pak::pkg_install(repo, lib = lib, upgrade = FALSE);
-        cat("changed\n");
-      }, warning = stop);
-    } else if (type == 'bitbucket') {
-      withCallingHandlers({
-        remotes::install_bitbucket(repo, lib = lib, upgrade = FALSE);
-        cat("changed\n");
-      }, warning = stop);
-    } else {
-      cat("Unrecognised type\n");
-      q(status = 1);
-    }
+    cat("Unrecognised type\n");
+    q(status = 1);
   }
 {% if not r_list_packages_once %}
 }
