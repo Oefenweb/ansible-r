@@ -52,7 +52,10 @@ while IFS= read -r requirement; do
 
   Rscript -e "
   withCallingHandlers({
-    is_new_devtools = compareVersion(as.character(packageVersion(\"devtools\")), \"2.5.0\") > -1
+    if (!('devtools' %in% installed.packages()[, 'Package'])) {
+      install.packages('devtools');
+    }
+    is_new_devtools = compareVersion(as.character(packageVersion('devtools')), '2.5.0') > -1
     if (is_new_devtools) {
       ${installCommandNew}
     } else {
