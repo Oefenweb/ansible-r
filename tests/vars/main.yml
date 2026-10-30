@@ -3,11 +3,14 @@
 r_install:
   - littler
 
-  # Needed for devtools
-  - libcurl4-gnutls-dev
+  # xml2
   - libxml2-dev
 
-  # Needed for fs
+  # curl
+  - libcurl4-openssl-dev
+
+  # fs
+  - cmake
   - libuv1-dev
 
 r_packages:
