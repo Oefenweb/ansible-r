@@ -6,9 +6,9 @@ if (is.null(argv) | length(argv) < 1) {
   q(status = 1);
 }
 
-type =  ifelse(is.na(argv[2]), '{{ r_packages_type }}', argv[2]);
-lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
-repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
+type = ifelse(is.na(argv[3]), '{{ r_packages_type }}', argv[3]);
+lib = ifelse(is.na(argv[4]), '{{ r_packages_lib }}', argv[4]);
+repos = ifelse(is.na(argv[5]), '{{ r_packages_repos.rstrip('/') }}', argv[5]);
 
 package = argv[1];
 alias = ifelse(is.na(argv[2]), package, argv[2]);
