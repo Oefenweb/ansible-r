@@ -15,10 +15,9 @@ Set up the latest version of R in Ubuntu systems.
 
 #### Variables
 
-* `r_version`: [default: `34`, `35` for `Ubuntu >= 18.04`, `40` for `Ubuntu >= 20.04`]: Version to install
+* `r_version`: [default: `40`]: Version to install
 
 * `r_cran_mirror`: [default: `https://cran.rstudio.com/`]: Your favorite [CRAN mirror](https://cran.r-project.org/mirrors.html)
-* `r_bioclite_url`: [default: `https://bioconductor.org/biocLite.R`]: The `biocLite.R` script URL for [Bioconductor](https://bioconductor.org/) installs
 
 * `r_install_dev`: [default: `false`]: Whether install the `r-base-dev` package
 * `r_install`: [default: `['littler']`]: Additional (apt) packages to install (e.g. `r-recommended`)
@@ -27,7 +26,8 @@ Set up the latest version of R in Ubuntu systems.
 * `r_packages_repos`: [default: `"{{ r_cran_mirror }}"`]: The (default) URL to install packages from
 
 * `r_packages`: [default: `[]`]: (CRAN) Packages to install or remove
-* `r_packages.{n}.name`: [required]: The name of the package
+* `r_packages.{n}.name`: [required]: The (installation) name of the package (e.g. `Oefenweb/r-dummy`)
+* `r_packages.{n}.alias`: [optional, default: `r_packages.{n}.name`]: The (actual) name of the package (e.g. `oefenwebDummy`)
 * `r_packages.{n}.state`: [optional, default: `present`]: The state of the package (e.g. `updated`, `absent`)
 * `r_packages.{n}.type`: [optional, default: `cran`]: The type of the package (e.g. `bioconductor`)
 * `r_packages.{n}.lib`: [optional, default: `r_packages_lib`]: The library directory to install the package to
@@ -63,16 +63,39 @@ None
     - oefenweb.r
   vars:
     r_install_dev: true
-    # apt packages
     r_install:
       - r-recommended
-    # cran, bioconductor or github (R) packages
     r_packages:
-      - name: dplyr
+      - name: DBI
+        state: present
+
+      - name: lenght
+        repos: https://ftp.ussg.iu.edu/CRAN/
+        lib: /tmp
+
+      - name: colorspace
+
+      - name: foreign
+        state: absent
+
       - name: Biobase
         type: bioconductor
-      - name: mangothecat/franc
+
+      - name: shiny
+        repos: https://cran.rstudio.com/
+
+      - name: Oefenweb/r-dummy
+        alias: oefenwebDummy
         type: github
+
+      - name: mangothecat/franc
+        alias: franc
+        type: github
+        state: absent
+
+      - name: tidyverse/ggplot2
+        type: github
+        state: absent
 ```
 
 #### License

@@ -29,4 +29,18 @@ r_packages:
     repos: https://cran.rstudio.com/
 
   - name: tidyverse/stringr
+    alias: stringr
     type: github
+
+  - name: Oefenweb/r-dummy
+    alias: oefenwebDummy
+    type: github
+
+  - name: mangothecat/franc
+    alias: franc
+    type: github
+    state: absent
+
+  - name: tidyverse/ggplot2
+    type: github
+    state: absent

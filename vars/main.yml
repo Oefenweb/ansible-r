@@ -2,7 +2,7 @@
 ---
 r_keyring_id: E298A3A825C0D65DFD57CBB651716619E084DAB9
 r_keyring_dst: /usr/share/keyrings/cran-r.gpg
-r_repository_suffix: "{{ '-cran' + r_version if r_version is version('35', '>=') else '' }}"
+r_repository_suffix: "{{ '-cran' + r_version }}"
 r_repositories:
   - type: "deb [signed-by={{ r_keyring_dst }}]"
     url: "{{ r_cran_mirror.rstrip('/') }}/bin/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }}{{ r_repository_suffix }}/"
@@ -31,6 +31,3 @@ r_preset_package_pak:
   - name: pak
 r_preset_package_remotes:
   - name: remotes
-
-r_preset_package_bioconductor:
-  - name: BiocManager

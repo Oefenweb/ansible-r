@@ -2,16 +2,30 @@
 
 argv = commandArgs(trailingOnly = TRUE);
 if (is.null(argv) | length(argv) < 1) {
-  cat("Usage: R-remove-package package [lib]\n");
+  cat("Usage: R-remove-package package [alias] [lib]\n");
   q(status = 1);
 }
 
-package = argv[1];
-lib = ifelse(is.na(argv[2]), '{{ r_packages_lib }}', argv[2]);
+lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
 
-if (package %in% installed.packages(lib.loc = lib)[, 'Package']) {
+package = argv[1];
+alias = ifelse(is.na(argv[2]), package, argv[2]);
+
+if (!('pak' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+  install.packages(
+    'pak',
+    repos = sprintf(
+      "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+      .Platform$pkgType,
+      R.Version()$os,
+      R.Version()$arch
+    )
+  );
+}
+
+if (alias %in% installed.packages(lib.loc = lib)[, 'Package']) {
   withCallingHandlers({
-    remove.packages(package, lib);
+    pak::pkg_remove(alias, lib = lib);
     cat("changed\n");
   }, warning = stop);
 }
