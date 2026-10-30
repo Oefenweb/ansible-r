@@ -7,6 +7,7 @@ r_install:
   - libcurl4-gnutls-dev
   - libxml2-dev
 
+  # Needed for fs
   - libuv1-dev
 
 r_packages:
