@@ -2,52 +2,56 @@
 
 argv = commandArgs(trailingOnly = TRUE);
 if (is.null(argv) | length(argv) < 1) {
-  cat("Usage: R-install-package package [type] [lib] [repos]\n");
+  cat("Usage: R-install-package package [alias] [type] [lib] [repos]\n");
   q(status = 1);
 }
 
-type = ifelse(is.na(argv[2]), '{{ r_packages_type }}', argv[2]);
-lib = ifelse(is.na(argv[3]), '{{ r_packages_lib }}', argv[3]);
+type = ifelse(is.na(argv[3]), '{{ r_packages_type }}', argv[3]);
+lib = ifelse(is.na(argv[4]), '{{ r_packages_lib }}', argv[4]);
+repos = ifelse(is.na(argv[5]), '{{ r_packages_repos.rstrip('/') }}', argv[5]);
 
+package = argv[1];
+alias = ifelse(is.na(argv[2]), package, argv[2]);
 if (type == 'github') {
   repo = argv[1];
-  package = unlist(strsplit(repo, "/"))[2];
-} else {
-  package = argv[1];
+  package = unlist(strsplit(repo, '/'))[2];
+  alias = ifelse(is.na(argv[2]), package, argv[2]);
+}
+
+if (!('pak' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+  install.packages(
+    'pak',
+    repos = sprintf(
+      "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+      .Platform$pkgType,
+      R.Version()$os,
+      R.Version()$arch
+    )
+  );
 }
 
 {% if not r_list_packages_once %}
-if (!(package %in% installed.packages(lib.loc = lib)[, 'Package'])) {
+if (!(alias %in% installed.packages(lib.loc = lib)[, 'Package'])) {
 {% endif %}
   if (type == 'cran') {
-    repos = ifelse(is.na(argv[4]), '{{ r_packages_repos.rstrip('/') }}', argv[4]);
-
-    # Temporary fix for: https://github.com/r-lib/xml2/issues/231
-    if (package %in% c('devtools', 'xml2')) {
-      if (!('withr' %in% installed.packages(lib.loc = lib)[, 'Package'])) {
-        install.packages('withr', lib, repos)
-      }
-      withr::with_makevars(c(CXX = 'g++ -std=c++11'), install.packages('xml2', lib, repos))
-    }
-
     withCallingHandlers({
-      install.packages(package, lib, repos);
-      cat("changed\n");
-    }, warning = stop);
-  } else if (type == 'bioconductor') {
-    withCallingHandlers({
-      {% if r_version is version('35', '>=') %}
-        BiocManager::install(package, lib = lib, update = FALSE)
-      {% else %}
-        source('{{ r_bioclite_url }}')
-        biocLite(package, lib = lib, suppressUpdates = TRUE, suppressAutoUpdate = TRUE, ask = FALSE)
-      {% endif %}
+      pak::repo_add(CRAN = repos)
+      pak::pkg_install(package, lib = lib, upgrade = FALSE);
       cat("changed\n");
     }, warning = stop);
   } else if (type == 'github') {
     withCallingHandlers({
-      library(remotes)
-      install_github(repo, lib = lib)
+      pak::pkg_install(repo, lib = lib, upgrade = FALSE);
+      cat("changed\n");
+    }, warning = stop);
+  } else if (type == 'bitbucket') {
+    withCallingHandlers({
+      remotes::install_bitbucket(repo, lib = lib, upgrade = FALSE);
+      cat("changed\n");
+    }, warning = stop);
+  } else if (type == 'bioconductor') {
+    withCallingHandlers({
+      pak::pkg_install(paste('bioc', package, sep='::'), lib = lib, upgrade = FALSE);
       cat("changed\n");
     }, warning = stop);
   } else {

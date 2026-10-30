@@ -22,27 +22,47 @@ fi
 requirementsFile="${2}";
 shift 2;
 
+Rscript -e "
+withCallingHandlers({
+  if (!('pak' %in% installed.packages()[, 'Package'])) {
+    install.packages(
+      'pak',
+      repos = sprintf(
+        \"https://r-lib.github.io/p/pak/stable/%s/%s/%s\",
+        .Platform\$pkgType,
+        R.Version()\$os,
+        R.Version()\$arch
+      )
+    );
+  }
+}, warning = stop)
+";
+
 while IFS= read -r requirement; do
   requirementType="$(echo "${requirement}" | awk -F'::' '{ print $1}')";
   requirementName="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $1}')";
   requirementVersion="$(echo "${requirement}" | awk -F'::' '{ print $2}' | awk -F'@' '{ print $2}')";
 
-  if [ "${requirementType}" == 'github' ]; then
-    installCommand="devtools::install_github(\"${requirementName}\")";
+  installCommand="pak::pkg_install(\"${requirementName}\")";
+  if [ -n "${requirementVersion}" ]; then
+    installCommand="pak::pkg_install(\"${requirementName}@${requirementVersion}\")";
+  fi
+
+  if [ "${requirementType}" == 'bitbucket' ]; then
+    installCommand="remotes::install_bitbucket(\"${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_github(\"${requirementName}\", ref=\"${requirementVersion}\")";
+      installCommand="remotes::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
     fi
-  elif [ "${requirementType}" == 'bitbucket' ]; then
-    installCommand="devtools::install_bitbucket(\"${requirementName}\")";
+  elif [ "${requirementType}" == 'bioconductor' ]; then
+    installCommand="pak::pkg_install(\"bioc::${requirementName}\")";
     if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_bitbucket(\"${requirementName}\", ref=\"${requirementVersion}\")";
-    fi
-  else
-    installCommand="devtools::install_cran(\"${requirementName}\")";
-    if [ -n "${requirementVersion}" ]; then
-      installCommand="devtools::install_version(\"${requirementName}\", version=\"${requirementVersion}\")";
+      installCommand="pak::pkg_install(\"bioc::${requirementName}@${requirementVersion}\")";
     fi
   fi
 
-  Rscript -e "withCallingHandlers(${installCommand}, warning = stop)";
+  Rscript -e "
+  withCallingHandlers({
+    ${installCommand}
+  }, warning = stop)
+  ";
 done < "${requirementsFile}"

@@ -3,13 +3,21 @@
 r_install:
   - littler
 
+  # xml2
+  - libxml2-dev
+
+  # curl
+  - libcurl4-openssl-dev
+
+  # fs
+  - cmake
   - libuv1-dev
 
 r_packages:
   - name: DBI
     state: present
 
-  - name: DBI
+  - name: lenght
     repos: https://ftp.ussg.iu.edu/CRAN/
     lib: /tmp
 
@@ -24,5 +32,19 @@ r_packages:
   - name: shiny
     repos: https://cran.rstudio.com/
 
-  - name: Oefenweb/r-dummy
+  - name: tidyverse/stringr
+    alias: stringr
     type: github
+
+  - name: Oefenweb/r-dummy
+    alias: oefenwebDummy
+    type: github
+
+  - name: mangothecat/franc
+    alias: franc
+    type: github
+    state: absent
+
+  - name: tidyverse/ggplot2
+    type: github
+    state: absent
